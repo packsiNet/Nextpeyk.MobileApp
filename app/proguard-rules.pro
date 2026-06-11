@@ -1,0 +1,3 @@
+-keep class com.nextpeyk.mobileapp.core.network.** { *; }
+-keepattributes Signature
+-keepattributes Exceptions
