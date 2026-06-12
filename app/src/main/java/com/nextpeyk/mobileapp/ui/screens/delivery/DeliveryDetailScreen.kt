@@ -40,11 +40,16 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.viewinterop.AndroidView
+import com.nextpeyk.mobileapp.core.map.SnappTileSource
 import com.nextpeyk.mobileapp.ui.screens.home.model.sampleShipments
 import kotlinx.coroutines.delay
+import org.osmdroid.util.GeoPoint
+import org.osmdroid.views.MapView
 
 // ── Design tokens ──────────────────────────────────────────────
 private val ACCENT = Color(0xFF246FA3)
@@ -331,16 +336,6 @@ private fun DeliveryInfoRow(
 @Composable
 private fun DeliveryMapThumb() {
     val infinite = rememberInfiniteTransition(label = "map")
-    val rippleScale by infinite.animateFloat(
-        initialValue = 0.4f, targetValue = 2.4f,
-        animationSpec = infiniteRepeatable(tween(1700), RepeatMode.Restart),
-        label = "ripple",
-    )
-    val rippleAlpha by infinite.animateFloat(
-        initialValue = 0.6f, targetValue = 0f,
-        animationSpec = infiniteRepeatable(tween(1700), RepeatMode.Restart),
-        label = "ripple_a",
-    )
     val pulseAlpha by infinite.animateFloat(
         initialValue = 0.45f, targetValue = 0f,
         animationSpec = infiniteRepeatable(tween(1800), RepeatMode.Restart),
@@ -354,41 +349,30 @@ private fun DeliveryMapThumb() {
             .clip(RoundedCornerShape(22.dp))
             .border(1.dp, LINE, RoundedCornerShape(22.dp)),
     ) {
-        androidx.compose.foundation.Canvas(modifier = Modifier.fillMaxSize()) {
-            drawDeliveryMap()
-        }
-        androidx.compose.foundation.Canvas(modifier = Modifier.fillMaxSize()) {
-            val scale = maxOf(size.width / 402f, size.height / 200f)
-            val dx = (size.width - 402f * scale) / 2f
-            val dy = (size.height - 200f * scale) / 2f
-            val px = dx + 0.60f * 402f * scale
-            val py = dy + 0.48f * 200f * scale
-            drawCircle(
-                ACCENT.copy(alpha = rippleAlpha * 0.5f),
-                radius = 23.dp.toPx() * rippleScale,
-                center = Offset(px, py),
-                style = Stroke(width = 2.5.dp.toPx()),
-            )
-        }
+        // Real tile map — static thumbnail (touch disabled)
+        AndroidView(
+            factory = { ctx ->
+                MapView(ctx).apply {
+                    setTileSource(SnappTileSource)
+                    setMultiTouchControls(false)
+                    isFocusable = false
+                    isClickable = false
+                    controller.setZoom(15.0)
+                    controller.setCenter(GeoPoint(35.7025, 51.4030))
+                    setOnTouchListener { _, _ -> true }  // block all touch → outer scroll works
+                }
+            },
+            modifier = Modifier.fillMaxSize(),
+        )
+
         // Pin
-        BoxWithConstraints(modifier = Modifier.fillMaxSize()) {
-            val w = constraints.maxWidth.toFloat()
-            val h = constraints.maxHeight.toFloat()
-            val density = LocalDensity.current
-            val pinWpx = with(density) { 34.dp.toPx() }
-            val pinHpx = with(density) { 44.dp.toPx() }
-            Box(
-                modifier = Modifier
-                    .offset(
-                        x = with(density) { (w * 0.60f - pinWpx / 2f).toDp() },
-                        y = with(density) { (h * 0.50f - pinHpx * 0.90f).toDp() },
-                    )
-                    .size(34.dp, 44.dp),
-                contentAlignment = Alignment.TopCenter,
-            ) {
-                Icon(Icons.Filled.LocationOn, null, tint = ACCENT, modifier = Modifier.size(34.dp, 44.dp))
-            }
-        }
+        Icon(
+            Icons.Filled.LocationOn,
+            contentDescription = null,
+            tint = ACCENT,
+            modifier = Modifier.align(Alignment.Center).size(38.dp),
+        )
+
         // Distance chip
         Row(
             modifier = Modifier
@@ -411,33 +395,6 @@ private fun DeliveryMapThumb() {
     }
 }
 
-private fun DrawScope.drawDeliveryMap() {
-    val lw = 402f; val lh = 200f
-    val scale = maxOf(size.width / lw, size.height / lh)
-    val dx = (size.width - lw * scale) / 2f
-    val dy = (size.height - lh * scale) / 2f
-    withTransform({ translate(dx, dy); scale(scale, scale) }) {
-        drawRect(Color(0xFFDCE8E2), size = Size(lw, lh))
-        drawRoundRect(Color(0xFFC8DFC5), Offset(-10f, 90f), Size(170f, 130f), CornerRadius(22f))
-        drawRoundRect(Color(0xFFC8DFC5), Offset(270f, -10f), Size(150f, 120f), CornerRadius(22f))
-        val water = Path().apply {
-            moveTo(300f, 130f); quadraticBezierTo(380f, 105f, 440f, 150f); lineTo(440f, 210f); lineTo(280f, 210f); close()
-        }
-        drawPath(water, Color(0xFFB0D4E8))
-        drawRoundRect(Color(0xFFE4EBE4), Offset(170f, 20f), Size(70f, 55f), CornerRadius(8f))
-        drawRoundRect(Color(0xFFE4EBE4), Offset(30f, 30f), Size(55f, 46f), CornerRadius(7f))
-        // Roads
-        drawLine(Color.White, Offset(-10f, 60f), Offset(420f, 60f), 16f, cap = StrokeCap.Round)
-        drawLine(Color.White, Offset(250f, -10f), Offset(250f, 210f), 16f, cap = StrokeCap.Round)
-        val curve = Path().apply { moveTo(-10f, 150f); quadraticBezierTo(170f, 140f, 260f, 175f); quadraticBezierTo(350f, 210f, 430f, 165f) }
-        drawPath(curve, Color.White, style = Stroke(12f, cap = StrokeCap.Round))
-        drawLine(Color.White, Offset(110f, -10f), Offset(110f, 210f), 10f, cap = StrokeCap.Round)
-        // Dashes
-        val dash = PathEffect.dashPathEffect(floatArrayOf(13f, 13f))
-        drawLine(Color(0xFFFEF0C0), Offset(-10f, 60f), Offset(420f, 60f), 1.4f, cap = StrokeCap.Round, pathEffect = dash)
-        drawLine(Color(0xFFFEF0C0), Offset(250f, -10f), Offset(250f, 210f), 1.4f, cap = StrokeCap.Round, pathEffect = dash)
-    }
-}
 
 @Composable
 private fun DeliveryPaymentCard() {
@@ -465,16 +422,19 @@ private fun DeliveryPaymentCard() {
                 Row(
                     verticalAlignment = Alignment.Bottom,
                     horizontalArrangement = Arrangement.spacedBy(6.dp),
+                    modifier = Modifier.fillMaxWidth(),
                 ) {
                     Text(
-                        "۱۸۵٬۰۰۰",
-                        fontSize = 28.sp,
+                        "۲۳٬۷۵۰٬۳۴۰",
+                        fontSize = 22.sp,
                         fontWeight = FontWeight.ExtraBold,
                         color = Color.White,
-                        letterSpacing = (-0.5).sp,
+                        letterSpacing = (-0.3).sp,
                         maxLines = 1,
+                        overflow = TextOverflow.Ellipsis,
+                        modifier = Modifier.weight(1f, fill = false),
                     )
-                    Text("تومان", fontSize = 14.sp, fontWeight = FontWeight.Medium, color = Color.White.copy(0.6f), modifier = Modifier.padding(bottom = 3.dp))
+                    Text("تومان", fontSize = 13.sp, fontWeight = FontWeight.Medium, color = Color.White.copy(0.6f), modifier = Modifier.padding(bottom = 2.dp))
                 }
             }
             Box(

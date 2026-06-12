@@ -549,7 +549,7 @@ public final class DaggerMyApp_HiltComponents_SingletonC {
     }
 
     @Override
-    public void injectMyApp(MyApp arg0) {
+    public void injectMyApp(MyApp myApp) {
     }
 
     @Override
