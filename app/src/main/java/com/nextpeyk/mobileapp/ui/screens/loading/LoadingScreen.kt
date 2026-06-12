@@ -303,49 +303,20 @@ private fun MapSection() {
 
 @Composable
 private fun ProgressSection() {
-    val progress = remember { Animatable(0f) }
-    LaunchedEffect(Unit) {
-        progress.animateTo(0.30f, tween(800,  easing = FastOutSlowInEasing))
-        progress.animateTo(0.58f, tween(1300, easing = FastOutSlowInEasing))
-        progress.animateTo(0.76f, tween(1300, easing = FastOutSlowInEasing))
-        progress.animateTo(0.90f, tween(800,  easing = FastOutSlowInEasing))
-    }
-
     val dots = rememberInfiniteTransition(label = "dots")
     val d1 by dots.animateFloat(0.25f, 1f, infiniteRepeatable(tween(650), RepeatMode.Reverse, StartOffset(0)),   label = "d1")
     val d2 by dots.animateFloat(0.25f, 1f, infiniteRepeatable(tween(650), RepeatMode.Reverse, StartOffset(180)), label = "d2")
     val d3 by dots.animateFloat(0.25f, 1f, infiniteRepeatable(tween(650), RepeatMode.Reverse, StartOffset(360)), label = "d3")
 
-    Column(
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(9.dp),
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(7.dp),
     ) {
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(3.dp)
-                .clip(RoundedCornerShape(99.dp))
-                .background(TrackColor),
-        ) {
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth(progress.value)
-                    .fillMaxHeight()
-                    .clip(RoundedCornerShape(99.dp))
-                    .background(Brush.horizontalGradient(listOf(Orange, Blue))),
-            )
-        }
-
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(7.dp),
-        ) {
-            Row(horizontalArrangement = Arrangement.spacedBy(4.dp), verticalAlignment = Alignment.CenterVertically) {
-                listOf(d1, d2, d3).forEach { a ->
-                    Canvas(Modifier.size(4.dp)) { drawCircle(MutedColor.copy(alpha = a)) }
-                }
+        Row(horizontalArrangement = Arrangement.spacedBy(4.dp), verticalAlignment = Alignment.CenterVertically) {
+            listOf(d1, d2, d3).forEach { a ->
+                Canvas(Modifier.size(4.dp)) { drawCircle(MutedColor.copy(alpha = a)) }
             }
-            Text("در حال بارگذاری", fontSize = 10.5.sp, color = MutedColor)
         }
+        Text("در حال بارگذاری", fontSize = 10.5.sp, color = MutedColor)
     }
 }
