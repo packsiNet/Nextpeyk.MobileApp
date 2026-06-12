@@ -85,10 +85,11 @@ fun DeliveryDetailScreen(
                     .weight(1f)
                     .verticalScroll(rememberScrollState())
                     .padding(horizontal = 18.dp, vertical = 2.dp)
-                    .padding(bottom = 36.dp),
+                    .padding(bottom = 12.dp),
             ) {
-                DeliveryTicketCard(shipment = shipment, onDeliver = onDeliver, onReturn = onReturn)
+                DeliveryTicketCard(shipment = shipment)
             }
+            DeliveryActionBar(onDeliver = onDeliver, onReturn = onReturn)
         }
     }
 }
@@ -145,8 +146,6 @@ private fun DeliveryTopBar(onBack: () -> Unit) {
 @Composable
 private fun DeliveryTicketCard(
     shipment: com.nextpeyk.mobileapp.ui.screens.home.model.Shipment,
-    onDeliver: () -> Unit,
-    onReturn: () -> Unit,
 ) {
     val clipboard = LocalClipboardManager.current
     var copied by remember { mutableStateOf(false) }
@@ -269,20 +268,6 @@ private fun DeliveryTicketCard(
 
             // Payment card
             DeliveryPaymentCard()
-
-            // Section divider
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(10.dp),
-            ) {
-                HorizontalDivider(modifier = Modifier.weight(1f), color = LINE, thickness = 1.dp)
-                Text("اقدامات", fontSize = 11.sp, color = MUTED, fontWeight = FontWeight.SemiBold)
-                HorizontalDivider(modifier = Modifier.weight(1f), color = LINE, thickness = 1.dp)
-            }
-
-            // Action buttons
-            ActionGrid(onDeliver = onDeliver, onReturn = onReturn)
         }
     }
 }
@@ -452,71 +437,70 @@ private fun DeliveryPaymentCard() {
 }
 
 @Composable
-private fun ActionGrid(onDeliver: () -> Unit, onReturn: () -> Unit) {
+private fun DeliveryActionBar(onDeliver: () -> Unit, onReturn: () -> Unit) {
     val deliverSource = remember { MutableInteractionSource() }
     val returnSource = remember { MutableInteractionSource() }
     val deliverPressed by deliverSource.collectIsPressedAsState()
     val returnPressed by returnSource.collectIsPressedAsState()
-    val deliverScale by animateFloatAsState(if (deliverPressed) 0.96f else 1f, label = "d_scale")
-    val returnScale by animateFloatAsState(if (returnPressed) 0.96f else 1f, label = "r_scale")
+    val deliverScale by animateFloatAsState(if (deliverPressed) 0.97f else 1f, label = "d_scale")
+    val returnScale by animateFloatAsState(if (returnPressed) 0.97f else 1f, label = "r_scale")
 
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .clip(CircleShape)
-            .background(Color(0xFFEEF0F1))
-            .padding(4.dp),
-        horizontalArrangement = Arrangement.spacedBy(4.dp),
-    ) {
-        // تحویل — dark filled
-        Box(
+    Column(modifier = Modifier.fillMaxWidth().background(Color.White)) {
+        HorizontalDivider(color = LINE, thickness = 1.dp)
+        Row(
             modifier = Modifier
-                .weight(1f)
-                .height(46.dp)
-                .graphicsLayer { scaleX = deliverScale; scaleY = deliverScale }
-                .clip(CircleShape)
-                .background(INK)
-                .clickable(interactionSource = deliverSource, indication = null, onClick = onDeliver),
-            contentAlignment = Alignment.Center,
+                .fillMaxWidth()
+                .padding(horizontal = 18.dp, vertical = 14.dp),
+            horizontalArrangement = Arrangement.spacedBy(12.dp),
         ) {
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(7.dp),
+            // تحویل — green
+            Box(
+                modifier = Modifier
+                    .weight(1f)
+                    .height(54.dp)
+                    .graphicsLayer { scaleX = deliverScale; scaleY = deliverScale }
+                    .clip(RoundedCornerShape(16.dp))
+                    .background(GREEN)
+                    .clickable(interactionSource = deliverSource, indication = null, onClick = onDeliver),
+                contentAlignment = Alignment.Center,
             ) {
-                // Up arrow icon
-                DeliverArrowIcon(up = true)
-                Text("تحویل", fontSize = 14.sp, fontWeight = FontWeight.Bold, color = Color.White)
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(8.dp),
+                ) {
+                    DeliverArrowIcon(up = true, tint = Color.White)
+                    Text("تحویل", fontSize = 15.sp, fontWeight = FontWeight.Bold, color = Color.White)
+                }
             }
-        }
 
-        // مرجوع — transparent
-        Box(
-            modifier = Modifier
-                .weight(1f)
-                .height(46.dp)
-                .graphicsLayer { scaleX = returnScale; scaleY = returnScale }
-                .clip(CircleShape)
-                .background(Color.Transparent)
-                .clickable(interactionSource = returnSource, indication = null, onClick = onReturn),
-            contentAlignment = Alignment.Center,
-        ) {
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(7.dp),
+            // مرجوع — red
+            Box(
+                modifier = Modifier
+                    .weight(1f)
+                    .height(54.dp)
+                    .graphicsLayer { scaleX = returnScale; scaleY = returnScale }
+                    .clip(RoundedCornerShape(16.dp))
+                    .background(RED)
+                    .clickable(interactionSource = returnSource, indication = null, onClick = onReturn),
+                contentAlignment = Alignment.Center,
             ) {
-                // Down arrow icon
-                DeliverArrowIcon(up = false)
-                Text("مرجوع", fontSize = 14.sp, fontWeight = FontWeight.SemiBold, color = INK)
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(8.dp),
+                ) {
+                    DeliverArrowIcon(up = false, tint = Color.White)
+                    Text("مرجوع", fontSize = 15.sp, fontWeight = FontWeight.Bold, color = Color.White)
+                }
             }
         }
     }
 }
 
 @Composable
-private fun DeliverArrowIcon(up: Boolean) {
+private fun DeliverArrowIcon(up: Boolean, tint: Color = Color.White) {
     androidx.compose.foundation.Canvas(modifier = Modifier.size(15.dp)) {
         val c = center
-        val color = if (up) Color.White else INK
+        val color = tint
         val stroke = Stroke(width = 2.dp.toPx(), cap = StrokeCap.Round, join = StrokeJoin.Round)
         if (up) {
             // Up arrow: M12 19V5M6 11l6-6 6 6 (scaled to 15x15)

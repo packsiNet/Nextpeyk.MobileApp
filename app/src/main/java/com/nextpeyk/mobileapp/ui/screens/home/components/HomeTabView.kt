@@ -19,6 +19,10 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -114,16 +118,9 @@ fun HomeTabView(
                 )
             }
 
-            Spacer(Modifier.height(24.dp))
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically,
-            ) {
-                Text("سایر مرسوله‌ها", fontSize = 16.sp, fontWeight = FontWeight.Bold, color = Ink)
-                Text("برای باز شدن لمس کنید", fontSize = 12.5.sp, color = Muted, fontWeight = FontWeight.SemiBold)
-            }
-            Spacer(Modifier.height(6.dp))
+            Spacer(Modifier.height(20.dp))
+            ShipmentFilterTabs()
+            Spacer(Modifier.height(10.dp))
         }
 
         // Scrollable list
@@ -145,6 +142,64 @@ fun HomeTabView(
                     ShipmentRow(shipment = s, number = idx + 1, onClick = { onShipmentSelect(i) })
                     if (idx < others.size - 1) {
                         HorizontalDivider(color = Line, thickness = 1.dp)
+                    }
+                }
+            }
+        }
+    }
+}
+
+private data class FilterTab(val label: String, val count: Int)
+
+@Composable
+private fun ShipmentFilterTabs() {
+    val tabs = listOf(FilterTab("همه", 50), FilterTab("تحویل", 35), FilterTab("مرجوع", 15))
+    var selected by remember { mutableIntStateOf(0) }
+
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clip(CircleShape)
+            .background(Color(0xFFEEF0F1))
+            .padding(4.dp),
+        horizontalArrangement = Arrangement.spacedBy(2.dp),
+    ) {
+        tabs.forEachIndexed { idx, tab ->
+            val active = selected == idx
+            Box(
+                modifier = Modifier
+                    .weight(1f)
+                    .height(36.dp)
+                    .clip(CircleShape)
+                    .background(if (active) Ink else Color.Transparent)
+                    .clickable(
+                        interactionSource = remember { MutableInteractionSource() },
+                        indication = null,
+                    ) { selected = idx },
+                contentAlignment = Alignment.Center,
+            ) {
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(5.dp),
+                ) {
+                    Text(
+                        tab.label,
+                        fontSize = 13.sp,
+                        fontWeight = if (active) FontWeight.Bold else FontWeight.SemiBold,
+                        color = if (active) Color.White else Muted,
+                    )
+                    Box(
+                        modifier = Modifier
+                            .clip(CircleShape)
+                            .background(if (active) Color.White.copy(alpha = 0.18f) else Color(0xFFDEE2E4))
+                            .padding(horizontal = 6.dp, vertical = 1.dp),
+                    ) {
+                        Text(
+                            tab.count.toString(),
+                            fontSize = 11.sp,
+                            fontWeight = FontWeight.Bold,
+                            color = if (active) Color.White else Muted,
+                        )
                     }
                 }
             }
