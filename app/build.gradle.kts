@@ -86,4 +86,7 @@ dependencies {
 
     // Timber
     implementation(libs.timber)
+
+    // Map
+    implementation(libs.osmdroid)
 }

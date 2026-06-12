@@ -14,6 +14,7 @@ lifecycle = "2.8.1"
 playServicesLocation = "21.3.0"
 datastore = "1.1.1"
 timber = "5.0.1"
+osmdroid = "6.1.18"
 
 [libraries]
 # Compose
@@ -56,6 +57,9 @@ material-icons-extended = { group = "androidx.compose.material", name = "materia
 
 # Timber
 timber = { group = "com.jakewharton.timber", name = "timber", version.ref = "timber" }
+
+# OSMDroid
+osmdroid = { group = "org.osmdroid", name = "osmdroid-android", version.ref = "osmdroid" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

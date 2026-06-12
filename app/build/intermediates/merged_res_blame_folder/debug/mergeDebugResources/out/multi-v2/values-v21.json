@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "com.nextpeyk.mobileapp-mergeDebugResources-60:/values-v21/values-v21.xml",
+            "outputFile": "com.nextpeyk.mobileapp-mergeDebugResources-61:/values-v21/values-v21.xml",
             "map": [
                 {
-                    "source": "/home/shahram/.gradle/caches/8.9/transforms/e57bcd0b47789109231e1aaf6342b7aa/transformed/core-1.13.1/res/values-v21/values-v21.xml",
+                    "source": "/home/shahram/.gradle/caches/8.9/transforms/c9f25e7fc321c38ce671293a899c40fd/transformed/core-1.13.1/res/values-v21/values-v21.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9,10,13",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4",
