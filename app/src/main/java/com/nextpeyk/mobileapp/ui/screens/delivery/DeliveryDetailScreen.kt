@@ -228,7 +228,7 @@ private fun DeliveryTicketCard(
                         Icon(Icons.Filled.Inventory2, null, tint = ACCENT, modifier = Modifier.size(16.dp))
                     }
                     Column {
-                        Text("کد رهگیری", fontSize = 10.5.sp, color = MUTED, fontWeight = FontWeight.Medium)
+                        Text("بارکد", fontSize = 10.5.sp, color = MUTED, fontWeight = FontWeight.Medium)
                         CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Ltr) {
                             Text(
                                 shipment.tracking,

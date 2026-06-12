@@ -187,7 +187,7 @@ private fun TicketCard(shipment: com.nextpeyk.mobileapp.ui.screens.home.model.Sh
                         Icon(Icons.Filled.Inventory2, null, tint = ACCENT_COLOR, modifier = Modifier.size(16.dp))
                     }
                     Column {
-                        Text("کد رهگیری", fontSize = 10.5.sp, color = MUTED_COLOR, fontWeight = FontWeight.Medium)
+                        Text("بارکد", fontSize = 10.5.sp, color = MUTED_COLOR, fontWeight = FontWeight.Medium)
                         CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Ltr) {
                             Text(shipment.tracking, fontSize = 14.sp, fontWeight = FontWeight.Bold, color = INK_COLOR, letterSpacing = 1.sp)
                         }

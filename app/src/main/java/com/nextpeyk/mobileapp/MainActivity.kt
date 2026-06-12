@@ -3,6 +3,7 @@ package com.nextpeyk.mobileapp
 import android.app.AlertDialog
 import android.os.Bundle
 import androidx.activity.ComponentActivity
+import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import com.nextpeyk.mobileapp.navigation.AppNavGraph
@@ -27,7 +28,16 @@ class MainActivity : ComponentActivity() {
             return
         }
 
-        enableEdgeToEdge()
+        enableEdgeToEdge(
+            statusBarStyle = SystemBarStyle.light(
+                android.graphics.Color.TRANSPARENT,
+                android.graphics.Color.TRANSPARENT,
+            ),
+            navigationBarStyle = SystemBarStyle.light(
+                android.graphics.Color.TRANSPARENT,
+                android.graphics.Color.TRANSPARENT,
+            ),
+        )
         setContent {
             NextpeykTheme {
                 AppNavGraph()
