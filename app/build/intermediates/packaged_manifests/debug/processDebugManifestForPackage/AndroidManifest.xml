@@ -32,7 +32,8 @@
         <activity
             android:name="com.nextpeyk.mobileapp.MainActivity"
             android:exported="true"
-            android:theme="@style/Theme.Nextpeyk" >
+            android:theme="@style/Theme.Nextpeyk"
+            android:windowSoftInputMode="adjustResize" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

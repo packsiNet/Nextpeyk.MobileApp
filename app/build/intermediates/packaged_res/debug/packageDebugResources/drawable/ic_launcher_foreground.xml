@@ -1,79 +1,186 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+  Nextpeyk App Icon — Foreground Layer
+  Design: "N" letterform built from a route path
+    • Two vertical strokes (left: 272,810↔272,214 / right: 752,810↔752,214)
+    • Diagonal stroke (top-left → bottom-right of N)
+    • Origin dot  (bottom-left,  cx=272 cy=810 r=56)
+    • Destination pin (top-right, cx=752 cy=214 r=52) with teardrop tail
+    • Motion dots fading along the diagonal
+  ViewBox: 1024×1024 (matches the SVG reference exactly)
+  Safe zone: 72dp centred in 108dp adaptive canvas → keep main art ~×0.67 scale
+-->
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
     android:width="108dp"
     android:height="108dp"
     android:viewportWidth="1024"
     android:viewportHeight="1024">
 
-    <!-- Blue glow behind origin dot (bottom-left) -->
+    <!--
+    ═══════════════════════════════════════════════════════
+      AMBIENT GLOW BEHIND N
+      Simulates the blurred #246fa3 stroke (opacity 0.1, blur 22)
+      with an extra-wide, very-low-opacity stroke pass.
+    ═══════════════════════════════════════════════════════
+    -->
     <path
-        android:fillColor="#2A246FA3"
+        android:fillColor="#00000000"
+        android:pathData="M272,810 L272,214 L752,810 L752,214"
+        android:strokeColor="#1A246FA3"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:strokeWidth="180"/>
+
+    <!--
+    ═══════════════════════════════════════════════════════
+      N — STROKES
+    ═══════════════════════════════════════════════════════
+    -->
+
+    <!-- Left vertical: full opacity white -->
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M272,810 L272,214"
+        android:strokeColor="#F2FFFFFF"
+        android:strokeLineCap="round"
+        android:strokeWidth="80"/>
+
+    <!-- Right vertical: full opacity white -->
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M752,810 L752,214"
+        android:strokeColor="#F2FFFFFF"
+        android:strokeLineCap="round"
+        android:strokeWidth="80"/>
+
+    <!-- Diagonal — bottom layer: lighter to simulate the gradient (55%→25%) -->
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M272,214 L752,810"
+        android:strokeColor="#8CFFFFFF"
+        android:strokeLineCap="round"
+        android:strokeWidth="80"/>
+
+    <!-- Diagonal — top layer: brighter white (0.70 opacity) -->
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M272,214 L752,810"
+        android:strokeColor="#B3FFFFFF"
+        android:strokeLineCap="round"
+        android:strokeWidth="80"/>
+
+    <!--
+    ═══════════════════════════════════════════════════════
+      ORIGIN DOT — bottom-left (272, 810)
+      r_glow=90 (18% opacity), r_dot=56 (#4ea8de→#1a5c8a), ring stroke=10
+    ═══════════════════════════════════════════════════════
+    -->
+
+    <!-- Glow halo -->
+    <path
+        android:fillColor="#2E246FA3"
         android:pathData="M182,810 A90,90,0,1,0,362,810 A90,90,0,1,0,182,810 Z"/>
 
-    <!-- Blue glow behind destination pin (top-right) -->
+    <!-- Dot gradient fill -->
+    <path android:pathData="M216,810 A56,56,0,1,0,328,810 A56,56,0,1,0,216,810 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:centerX="272"
+                android:centerY="810"
+                android:gradientRadius="56"
+                android:startColor="#4ea8de"
+                android:endColor="#1a5c8a"
+                android:type="radial"/>
+        </aapt:attr>
+    </path>
+
+    <!-- White ring -->
     <path
-        android:fillColor="#2A246FA3"
+        android:fillColor="#00000000"
+        android:pathData="M216,810 A56,56,0,1,0,328,810 A56,56,0,1,0,216,810 Z"
+        android:strokeColor="#B3FFFFFF"
+        android:strokeWidth="10"/>
+
+    <!--
+    ═══════════════════════════════════════════════════════
+      DESTINATION PIN — top-right (752, 214)
+      r_glow=90, r_pin=52 (#4ea8de→#1a5c8a), teardrop tail, ring stroke=10
+    ═══════════════════════════════════════════════════════
+    -->
+
+    <!-- Glow halo -->
+    <path
+        android:fillColor="#2E246FA3"
         android:pathData="M662,214 A90,90,0,1,0,842,214 A90,90,0,1,0,662,214 Z"/>
 
-    <!-- Left vertical stroke -->
-    <path
-        android:strokeWidth="80"
-        android:strokeColor="#F2FFFFFF"
-        android:strokeLineCap="round"
-        android:fillColor="#00000000"
-        android:pathData="M272,810 L272,214"/>
+    <!-- Pin circle gradient fill -->
+    <path android:pathData="M700,214 A52,52,0,1,0,804,214 A52,52,0,1,0,700,214 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:centerX="752"
+                android:centerY="214"
+                android:gradientRadius="52"
+                android:startColor="#4ea8de"
+                android:endColor="#1a5c8a"
+                android:type="radial"/>
+        </aapt:attr>
+    </path>
 
-    <!-- Right vertical stroke -->
+    <!-- White ring -->
     <path
-        android:strokeWidth="80"
-        android:strokeColor="#F2FFFFFF"
-        android:strokeLineCap="round"
         android:fillColor="#00000000"
-        android:pathData="M752,810 L752,214"/>
-
-    <!-- Diagonal stroke (slightly transparent for depth) -->
-    <path
-        android:strokeWidth="80"
+        android:pathData="M700,214 A52,52,0,1,0,804,214 A52,52,0,1,0,700,214 Z"
         android:strokeColor="#B3FFFFFF"
-        android:strokeLineCap="round"
-        android:fillColor="#00000000"
-        android:pathData="M272,214 L752,810"/>
+        android:strokeWidth="10"/>
 
-    <!-- Origin dot fill — blue gradient approximated as solid -->
+    <!-- Teardrop tail — gradient fill -->
+    <path android:pathData="M729,254 Q752,310 775,254 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:centerX="752"
+                android:centerY="214"
+                android:gradientRadius="60"
+                android:startColor="#4ea8de"
+                android:endColor="#1a5c8a"
+                android:type="radial"/>
+        </aapt:attr>
+    </path>
+
+    <!-- Teardrop tail — white highlight (25% opacity) -->
     <path
-        android:fillColor="#246FA3"
-        android:pathData="M216,810 A56,56,0,1,0,328,810 A56,56,0,1,0,216,810 Z"/>
+        android:fillColor="#40FFFFFF"
+        android:pathData="M734,256 Q752,298 770,256 Z"/>
 
-    <!-- Origin dot ring -->
-    <path
-        android:strokeWidth="10"
-        android:strokeColor="#B3FFFFFF"
-        android:fillColor="#00000000"
-        android:pathData="M216,810 A56,56,0,1,0,328,810 A56,56,0,1,0,216,810 Z"/>
+    <!--
+    ═══════════════════════════════════════════════════════
+      MOTION DOTS — fading trail along the diagonal
+      Design: (416,608) r=22 @18%, (512,512) r=16 @12%, (608,416) r=11 @8%
+    ═══════════════════════════════════════════════════════
+    -->
 
-    <!-- Destination circle fill -->
-    <path
-        android:fillColor="#246FA3"
-        android:pathData="M700,214 A52,52,0,1,0,804,214 A52,52,0,1,0,700,214 Z"/>
-
-    <!-- Destination circle ring -->
-    <path
-        android:strokeWidth="10"
-        android:strokeColor="#B3FFFFFF"
-        android:fillColor="#00000000"
-        android:pathData="M700,214 A52,52,0,1,0,804,214 A52,52,0,1,0,700,214 Z"/>
-
-    <!-- Teardrop tail on destination pin -->
-    <path
-        android:fillColor="#246FA3"
-        android:pathData="M729,254 Q752,310 775,254 Z"/>
-
-    <!-- Small motion dots on diagonal -->
+    <!-- Dot 1 — cx=416, cy=608, r=22 -->
     <path
         android:fillColor="#2EFFFFFF"
-        android:pathData="M394,630 A22,22,0,1,0,438,630 A22,22,0,1,0,394,630 Z"/>
+        android:pathData="M394,608 A22,22,0,1,0,438,608 A22,22,0,1,0,394,608 Z"/>
+
+    <!-- Dot 2 — cx=512, cy=512, r=16 -->
     <path
         android:fillColor="#1EFFFFFF"
-        android:pathData="M496,514 A16,16,0,1,0,528,514 A16,16,0,1,0,496,514 Z"/>
+        android:pathData="M496,512 A16,16,0,1,0,528,512 A16,16,0,1,0,496,512 Z"/>
+
+    <!-- Dot 3 — cx=608, cy=416, r=11 -->
+    <path
+        android:fillColor="#14FFFFFF"
+        android:pathData="M597,416 A11,11,0,1,0,619,416 A11,11,0,1,0,597,416 Z"/>
+
+    <!--
+    ═══════════════════════════════════════════════════════
+      TOP-LEFT SHINE — subtle specular highlight (2.5% opacity)
+    ═══════════════════════════════════════════════════════
+    -->
+    <path
+        android:fillColor="#07FFFFFF"
+        android:pathData="M-20,80 A200,160,0,0,1 360,0 L360,0 A200,160,0,0,0 -20,80 Z"/>
 
 </vector>

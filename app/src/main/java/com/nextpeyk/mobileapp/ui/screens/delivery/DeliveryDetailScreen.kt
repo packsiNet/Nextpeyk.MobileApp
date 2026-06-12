@@ -17,7 +17,7 @@ import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.ContentCopy
 import androidx.compose.material.icons.filled.Inventory2
 import androidx.compose.material.icons.filled.LocationOn
-import androidx.compose.material.icons.filled.Payments
+import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material.icons.filled.Phone
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
@@ -246,9 +246,6 @@ private fun DeliveryTicketCard(
                 }
             }
 
-            // Map
-            DeliveryMapThumb()
-
             // Address + phone
             Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
                 DeliveryInfoRow(
@@ -456,7 +453,7 @@ private fun DeliveryPaymentCard() {
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically,
         ) {
-            Column {
+            Column(modifier = Modifier.weight(1f).padding(end = 12.dp)) {
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.spacedBy(7.dp),
@@ -465,8 +462,18 @@ private fun DeliveryPaymentCard() {
                     Box(Modifier.size(6.dp).clip(CircleShape).background(Color(0xFF5FB98A)))
                     Text("پرداخت در محل · نقدی", fontSize = 11.5.sp, color = Color.White.copy(0.62f), fontWeight = FontWeight.Medium)
                 }
-                Row(verticalAlignment = Alignment.Bottom, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
-                    Text("۱۸۵٬۰۰۰", fontSize = 28.sp, fontWeight = FontWeight.ExtraBold, color = Color.White, letterSpacing = (-0.5).sp)
+                Row(
+                    verticalAlignment = Alignment.Bottom,
+                    horizontalArrangement = Arrangement.spacedBy(6.dp),
+                ) {
+                    Text(
+                        "۱۸۵٬۰۰۰",
+                        fontSize = 28.sp,
+                        fontWeight = FontWeight.ExtraBold,
+                        color = Color.White,
+                        letterSpacing = (-0.5).sp,
+                        maxLines = 1,
+                    )
                     Text("تومان", fontSize = 14.sp, fontWeight = FontWeight.Medium, color = Color.White.copy(0.6f), modifier = Modifier.padding(bottom = 3.dp))
                 }
             }
@@ -478,7 +485,7 @@ private fun DeliveryPaymentCard() {
                     .border(1.dp, Color.White.copy(0.12f), RoundedCornerShape(15.dp)),
                 contentAlignment = Alignment.Center,
             ) {
-                Icon(Icons.Filled.Payments, null, tint = Color.White, modifier = Modifier.size(25.dp))
+                Icon(Icons.Filled.Refresh, null, tint = Color.White, modifier = Modifier.size(25.dp))
             }
         }
     }

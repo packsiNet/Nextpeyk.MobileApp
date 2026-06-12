@@ -4,11 +4,14 @@ import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.LayoutDirection
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
@@ -34,7 +37,6 @@ fun HomeScreen(navController: NavController, viewModel: HomeViewModel = hiltView
                     openIndex = uiState.openShipmentIndex,
                     showStats = uiState.showStats,
                     onStatsToggle = viewModel::toggleStats,
-                    onStatsClose = viewModel::dismissStats,
                     onShipmentSelect = viewModel::setOpenShipment,
                     onDetails = { index ->
                         navController.navigate(Screen.ParcelDetails.createRoute(index))
@@ -67,6 +69,38 @@ fun HomeScreen(navController: NavController, viewModel: HomeViewModel = hiltView
                     onDismiss = viewModel::dismissSearch,
                     modifier = Modifier.fillMaxSize(),
                 )
+            }
+
+            // Stats modal overlay
+            AnimatedVisibility(
+                visible = uiState.showStats && uiState.activeTab == HomeTab.Home,
+                enter = fadeIn(),
+                exit = fadeOut(),
+            ) {
+                Box(modifier = Modifier.fillMaxSize()) {
+                    // Scrim
+                    Box(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .background(androidx.compose.ui.graphics.Color.Black.copy(alpha = 0.28f))
+                            .clickable(
+                                indication = null,
+                                interactionSource = remember { MutableInteractionSource() },
+                            ) { viewModel.dismissStats() },
+                    )
+                    // Modal card
+                    StatsPopover(
+                        onClose = viewModel::dismissStats,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 20.dp)
+                            .padding(top = 88.dp)
+                            .clickable(
+                                indication = null,
+                                interactionSource = remember { MutableInteractionSource() },
+                            ) {},
+                    )
+                }
             }
         }
 

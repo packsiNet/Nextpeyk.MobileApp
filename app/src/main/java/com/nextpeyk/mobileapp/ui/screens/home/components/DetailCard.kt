@@ -66,27 +66,26 @@ fun DetailCard(shipment: Shipment, number: Int, onDetails: () -> Unit = {}, modi
             }
 
             Column(modifier = Modifier.padding(end = 38.dp)) {
-                // Status
-                Row(verticalAlignment = Alignment.CenterVertically) {
+                // Recipient name with status dot
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(8.dp),
+                ) {
                     Box(
                         modifier = Modifier
-                            .size(7.dp)
+                            .size(9.dp)
                             .clip(CircleShape)
                             .background(toneStyle.dot),
                     )
-                    Spacer(Modifier.width(6.dp))
-                    Text(shipment.statusLabel, fontSize = 11.5.sp, fontWeight = FontWeight.SemiBold, color = Color.White.copy(alpha = 0.55f))
+                    Text(shipment.recipientName, fontSize = 21.sp, fontWeight = FontWeight.ExtraBold, color = Color.White, lineHeight = 25.sp)
                 }
                 Spacer(Modifier.height(6.dp))
-                // Recipient name
-                Text(shipment.recipientName, fontSize = 21.sp, fontWeight = FontWeight.ExtraBold, color = Color.White, lineHeight = 25.sp)
-                Spacer(Modifier.height(4.dp))
                 // Tracking (LTR)
                 Text(
                     shipment.tracking,
-                    fontSize = 10.5.sp,
+                    fontSize = 13.sp,
                     fontWeight = FontWeight.Medium,
-                    color = Color.White.copy(alpha = 0.3f),
+                    color = Color.White.copy(alpha = 0.45f),
                     letterSpacing = 0.8.sp,
                 )
             }

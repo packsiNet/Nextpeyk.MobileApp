@@ -124,7 +124,7 @@ fun ReturnReasonScreen(
                     Spacer(Modifier.size(42.dp))
                 }
 
-                Column(modifier = Modifier.fillMaxSize()) {
+                Column(modifier = Modifier.fillMaxSize().imePadding()) {
                     Column(
                         modifier = Modifier
                             .weight(1f)
@@ -340,7 +340,7 @@ private fun ReturnParcelCard(shipment: com.nextpeyk.mobileapp.ui.screens.home.mo
             CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Ltr) {
                 Text(
                     shipment.tracking,
-                    fontSize = 11.sp, color = Color.White.copy(0.45f),
+                    fontSize = 13.sp, color = Color.White.copy(0.5f),
                     fontWeight = FontWeight.Medium, letterSpacing = 0.6.sp,
                 )
             }

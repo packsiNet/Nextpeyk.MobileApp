@@ -1,9 +1,9 @@
 -- Merging decision tree log ---
 manifest
-ADDED from /run/media/shahram/New Volume/Projects/Nextpeyk/Nextpeyk.MobileApp/app/src/main/AndroidManifest.xml:2:1-29:12
-INJECTED from /run/media/shahram/New Volume/Projects/Nextpeyk/Nextpeyk.MobileApp/app/src/main/AndroidManifest.xml:2:1-29:12
-INJECTED from /run/media/shahram/New Volume/Projects/Nextpeyk/Nextpeyk.MobileApp/app/src/main/AndroidManifest.xml:2:1-29:12
-INJECTED from /run/media/shahram/New Volume/Projects/Nextpeyk/Nextpeyk.MobileApp/app/src/main/AndroidManifest.xml:2:1-29:12
+ADDED from /run/media/shahram/New Volume/Projects/Nextpeyk/Nextpeyk.MobileApp/app/src/main/AndroidManifest.xml:2:1-30:12
+INJECTED from /run/media/shahram/New Volume/Projects/Nextpeyk/Nextpeyk.MobileApp/app/src/main/AndroidManifest.xml:2:1-30:12
+INJECTED from /run/media/shahram/New Volume/Projects/Nextpeyk/Nextpeyk.MobileApp/app/src/main/AndroidManifest.xml:2:1-30:12
+INJECTED from /run/media/shahram/New Volume/Projects/Nextpeyk/Nextpeyk.MobileApp/app/src/main/AndroidManifest.xml:2:1-30:12
 MERGED from [androidx.hilt:hilt-navigation-compose:1.2.0] /home/shahram/.gradle/caches/8.9/transforms/603b4dc16340020978cf875b545fd913/transformed/hilt-navigation-compose-1.2.0/AndroidManifest.xml:2:1-7:12
 MERGED from [androidx.hilt:hilt-navigation:1.2.0] /home/shahram/.gradle/caches/8.9/transforms/5502b930d3305e559f2b73d548d09a19/transformed/hilt-navigation-1.2.0/AndroidManifest.xml:2:1-7:12
 MERGED from [androidx.navigation:navigation-common:2.8.9] /home/shahram/.gradle/caches/8.9/transforms/6983551a5a87cdf0d3e20bc25597cbd7/transformed/navigation-common-2.8.9/AndroidManifest.xml:17:1-22:12
@@ -96,8 +96,8 @@ ADDED from /run/media/shahram/New Volume/Projects/Nextpeyk/Nextpeyk.MobileApp/ap
 	android:name
 		ADDED from /run/media/shahram/New Volume/Projects/Nextpeyk/Nextpeyk.MobileApp/app/src/main/AndroidManifest.xml:6:22-78
 application
-ADDED from /run/media/shahram/New Volume/Projects/Nextpeyk/Nextpeyk.MobileApp/app/src/main/AndroidManifest.xml:8:5-27:19
-INJECTED from /run/media/shahram/New Volume/Projects/Nextpeyk/Nextpeyk.MobileApp/app/src/main/AndroidManifest.xml:8:5-27:19
+ADDED from /run/media/shahram/New Volume/Projects/Nextpeyk/Nextpeyk.MobileApp/app/src/main/AndroidManifest.xml:8:5-28:19
+INJECTED from /run/media/shahram/New Volume/Projects/Nextpeyk/Nextpeyk.MobileApp/app/src/main/AndroidManifest.xml:8:5-28:19
 MERGED from [com.google.android.gms:play-services-location:21.3.0] /home/shahram/.gradle/caches/8.9/transforms/25086fde5006341e36d6ae566c8a27bd/transformed/play-services-location-21.3.0/AndroidManifest.xml:6:5-20
 MERGED from [com.google.android.gms:play-services-location:21.3.0] /home/shahram/.gradle/caches/8.9/transforms/25086fde5006341e36d6ae566c8a27bd/transformed/play-services-location-21.3.0/AndroidManifest.xml:6:5-20
 MERGED from [com.google.android.gms:play-services-base:18.5.0] /home/shahram/.gradle/caches/8.9/transforms/0a60ac5cd519962c42fb25a1c7390229/transformed/play-services-base-18.5.0/AndroidManifest.xml:4:5-6:19
@@ -141,7 +141,9 @@ MERGED from [androidx.startup:startup-runtime:1.1.1] /home/shahram/.gradle/cache
 	android:name
 		ADDED from /run/media/shahram/New Volume/Projects/Nextpeyk/Nextpeyk.MobileApp/app/src/main/AndroidManifest.xml:9:9-30
 activity#com.nextpeyk.mobileapp.MainActivity
-ADDED from /run/media/shahram/New Volume/Projects/Nextpeyk/Nextpeyk.MobileApp/app/src/main/AndroidManifest.xml:17:9-25:20
+ADDED from /run/media/shahram/New Volume/Projects/Nextpeyk/Nextpeyk.MobileApp/app/src/main/AndroidManifest.xml:17:9-26:20
+	android:windowSoftInputMode
+		ADDED from /run/media/shahram/New Volume/Projects/Nextpeyk/Nextpeyk.MobileApp/app/src/main/AndroidManifest.xml:21:13-55
 	android:exported
 		ADDED from /run/media/shahram/New Volume/Projects/Nextpeyk/Nextpeyk.MobileApp/app/src/main/AndroidManifest.xml:19:13-36
 	android:theme
@@ -149,15 +151,15 @@ ADDED from /run/media/shahram/New Volume/Projects/Nextpeyk/Nextpeyk.MobileApp/ap
 	android:name
 		ADDED from /run/media/shahram/New Volume/Projects/Nextpeyk/Nextpeyk.MobileApp/app/src/main/AndroidManifest.xml:18:13-41
 intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
-ADDED from /run/media/shahram/New Volume/Projects/Nextpeyk/Nextpeyk.MobileApp/app/src/main/AndroidManifest.xml:21:13-24:29
+ADDED from /run/media/shahram/New Volume/Projects/Nextpeyk/Nextpeyk.MobileApp/app/src/main/AndroidManifest.xml:22:13-25:29
 action#android.intent.action.MAIN
-ADDED from /run/media/shahram/New Volume/Projects/Nextpeyk/Nextpeyk.MobileApp/app/src/main/AndroidManifest.xml:22:17-69
+ADDED from /run/media/shahram/New Volume/Projects/Nextpeyk/Nextpeyk.MobileApp/app/src/main/AndroidManifest.xml:23:17-69
 	android:name
-		ADDED from /run/media/shahram/New Volume/Projects/Nextpeyk/Nextpeyk.MobileApp/app/src/main/AndroidManifest.xml:22:25-66
+		ADDED from /run/media/shahram/New Volume/Projects/Nextpeyk/Nextpeyk.MobileApp/app/src/main/AndroidManifest.xml:23:25-66
 category#android.intent.category.LAUNCHER
-ADDED from /run/media/shahram/New Volume/Projects/Nextpeyk/Nextpeyk.MobileApp/app/src/main/AndroidManifest.xml:23:17-77
+ADDED from /run/media/shahram/New Volume/Projects/Nextpeyk/Nextpeyk.MobileApp/app/src/main/AndroidManifest.xml:24:17-77
 	android:name
-		ADDED from /run/media/shahram/New Volume/Projects/Nextpeyk/Nextpeyk.MobileApp/app/src/main/AndroidManifest.xml:23:27-74
+		ADDED from /run/media/shahram/New Volume/Projects/Nextpeyk/Nextpeyk.MobileApp/app/src/main/AndroidManifest.xml:24:27-74
 uses-sdk
 INJECTED from /run/media/shahram/New Volume/Projects/Nextpeyk/Nextpeyk.MobileApp/app/src/main/AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from /run/media/shahram/New Volume/Projects/Nextpeyk/Nextpeyk.MobileApp/app/src/main/AndroidManifest.xml

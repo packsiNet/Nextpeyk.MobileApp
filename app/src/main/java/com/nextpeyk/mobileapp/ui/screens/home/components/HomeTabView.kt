@@ -34,6 +34,7 @@ import com.nextpeyk.mobileapp.ui.theme.Ink
 import com.nextpeyk.mobileapp.ui.theme.Line
 import com.nextpeyk.mobileapp.ui.theme.Muted
 import com.nextpeyk.mobileapp.ui.theme.Page
+import androidx.compose.foundation.interaction.MutableInteractionSource
 
 @Composable
 fun HomeTabView(
@@ -41,7 +42,6 @@ fun HomeTabView(
     openIndex: Int,
     showStats: Boolean,
     onStatsToggle: () -> Unit,
-    onStatsClose: () -> Unit,
     onShipmentSelect: (Int) -> Unit,
     onDetails: (Int) -> Unit = {},
     onProfile: () -> Unit = {},
@@ -96,12 +96,6 @@ fun HomeTabView(
                         Text("ن", fontSize = 18.sp, fontWeight = FontWeight.Bold, color = Color.White)
                     }
                 }
-            }
-
-            // Stats popover
-            if (showStats) {
-                StatsPopover(onClose = onStatsClose)
-                Spacer(Modifier.height(16.dp))
             }
 
             // Featured card

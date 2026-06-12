@@ -13,12 +13,14 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import kotlinx.coroutines.isActive
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Inventory2
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MenuDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -120,7 +122,7 @@ private fun DeliveryFormContent(
 
     val canSubmit = name.trim().isNotEmpty() && idType.isNotEmpty() && code.length == 5
 
-    Column(modifier = Modifier.fillMaxSize()) {
+    Column(modifier = Modifier.fillMaxSize().imePadding()) {
         Column(
             modifier = Modifier
                 .weight(1f)
@@ -199,11 +201,29 @@ private fun DeliveryFormContent(
                     onValueChange = { code = it; if (it.length == 5) errors = errors - "code" },
                     isError = "code" in errors,
                 )
-                Text(
-                    "کد را از پیامک گیرنده دریافت کنید",
-                    fontSize = 11.5.sp, color = C_MUTED, fontWeight = FontWeight.Medium,
+                Row(
                     modifier = Modifier.fillMaxWidth().padding(top = 11.dp),
-                )
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically,
+                ) {
+                    Text(
+                        "کد را از پیامک گیرنده دریافت کنید",
+                        fontSize = 11.5.sp, color = C_MUTED, fontWeight = FontWeight.Medium,
+                    )
+                    if (code.isNotEmpty()) {
+                        Text(
+                            "پاک کردن",
+                            fontSize = 11.5.sp,
+                            color = C_RED,
+                            fontWeight = FontWeight.SemiBold,
+                            modifier = Modifier
+                                .clip(RoundedCornerShape(8.dp))
+                                .background(C_RED_SOFT)
+                                .clickable { code = ""; errors = errors - "code" }
+                                .padding(horizontal = 10.dp, vertical = 4.dp),
+                        )
+                    }
+                }
             }
         }
 
@@ -289,12 +309,42 @@ private fun IdTypeDropdown(value: String, onValueChange: (String) -> Unit, isErr
                 modifier = Modifier.size(16.dp),
             )
         }
-        DropdownMenu(expanded = expanded, onDismissRequest = { expanded = false }) {
-            options.forEach { (id, label) ->
-                DropdownMenuItem(
-                    text = { Text(label) },
-                    onClick = { onValueChange(id); expanded = false },
-                )
+        DropdownMenu(
+            expanded = expanded,
+            onDismissRequest = { expanded = false },
+            modifier = Modifier
+                .background(Color.White, RoundedCornerShape(16.dp))
+                .fillMaxWidth(0.88f),
+        ) {
+            CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Rtl) {
+                options.forEach { (id, label) ->
+                    val isSelected = id == value
+                    DropdownMenuItem(
+                        text = {
+                            Text(
+                                label,
+                                fontSize = 14.sp,
+                                fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Normal,
+                                color = if (isSelected) C_ACCENT else C_INK,
+                            )
+                        },
+                        onClick = { onValueChange(id); expanded = false },
+                        trailingIcon = if (isSelected) {
+                            {
+                                Icon(
+                                    Icons.Filled.Check,
+                                    contentDescription = null,
+                                    tint = C_ACCENT,
+                                    modifier = Modifier.size(16.dp),
+                                )
+                            }
+                        } else null,
+                        colors = MenuDefaults.itemColors(
+                            textColor = C_INK,
+                        ),
+                        modifier = Modifier.fillMaxWidth(),
+                    )
+                }
             }
         }
     }
@@ -303,7 +353,15 @@ private fun IdTypeDropdown(value: String, onValueChange: (String) -> Unit, isErr
 @Composable
 private fun OtpInput(value: String, onValueChange: (String) -> Unit, isError: Boolean) {
     val focusRequester = remember { FocusRequester() }
-    LaunchedEffect(Unit) { focusRequester.requestFocus() }
+    var cursorVisible by remember { mutableStateOf(true) }
+
+    LaunchedEffect(Unit) {
+        focusRequester.requestFocus()
+        while (isActive) {
+            delay(530)
+            cursorVisible = !cursorVisible
+        }
+    }
 
     Box(modifier = Modifier.fillMaxWidth()) {
         // Hidden text field captures input
@@ -329,6 +387,7 @@ private fun OtpInput(value: String, onValueChange: (String) -> Unit, isError: Bo
             (0 until 5).forEach { i ->
                 val digit = value.getOrNull(i)
                 val filled = digit != null
+                val isActiveSlot = i == value.length && value.length < 5
                 Box(
                     modifier = Modifier
                         .weight(1f)
@@ -339,6 +398,7 @@ private fun OtpInput(value: String, onValueChange: (String) -> Unit, isError: Bo
                             1.8.dp,
                             when {
                                 isError && !filled -> C_RED
+                                isActiveSlot -> C_ACCENT
                                 filled -> C_ACCENT
                                 else -> C_LINE
                             },
@@ -348,6 +408,13 @@ private fun OtpInput(value: String, onValueChange: (String) -> Unit, isError: Bo
                 ) {
                     if (digit != null) {
                         Text(digit.toString(), fontSize = 24.sp, fontWeight = FontWeight.ExtraBold, color = C_INK)
+                    } else if (isActiveSlot && cursorVisible) {
+                        Box(
+                            modifier = Modifier
+                                .width(2.dp)
+                                .height(26.dp)
+                                .background(C_ACCENT),
+                        )
                     }
                 }
             }
@@ -379,8 +446,8 @@ private fun ParcelSummaryCard(shipment: com.nextpeyk.mobileapp.ui.screens.home.m
             CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Ltr) {
                 Text(
                     shipment.tracking,
-                    fontSize = 10.5.sp, color = Color.White.copy(0.4f),
-                    letterSpacing = 0.7.sp,
+                    fontSize = 13.sp, color = Color.White.copy(0.5f),
+                    letterSpacing = 0.7.sp, fontWeight = FontWeight.Medium,
                 )
             }
             Text(shipment.recipientName, fontSize = 15.5.sp, fontWeight = FontWeight.Bold, color = Color.White)

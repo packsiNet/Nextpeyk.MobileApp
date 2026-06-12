@@ -15,7 +15,7 @@ import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.ContentCopy
 import androidx.compose.material.icons.filled.Inventory2
 import androidx.compose.material.icons.filled.LocationOn
-import androidx.compose.material.icons.filled.Payments
+import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material.icons.filled.Phone
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
@@ -530,7 +530,7 @@ private fun PaymentCard() {
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically,
         ) {
-            Column {
+            Column(modifier = Modifier.weight(1f).padding(end = 12.dp)) {
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.spacedBy(7.dp),
@@ -544,13 +544,17 @@ private fun PaymentCard() {
                         fontWeight = FontWeight.Medium,
                     )
                 }
-                Row(verticalAlignment = Alignment.Bottom, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+                Row(
+                    verticalAlignment = Alignment.Bottom,
+                    horizontalArrangement = Arrangement.spacedBy(6.dp),
+                ) {
                     Text(
                         "۱۸۵٬۰۰۰",
                         fontSize = 30.sp,
                         fontWeight = FontWeight.ExtraBold,
                         color = Color.White,
                         letterSpacing = (-0.5).sp,
+                        maxLines = 1,
                     )
                     Text(
                         "تومان",
@@ -570,7 +574,7 @@ private fun PaymentCard() {
                 contentAlignment = Alignment.Center,
             ) {
                 Icon(
-                    Icons.Filled.Payments,
+                    Icons.Filled.Refresh,
                     contentDescription = null,
                     tint = Color.White,
                     modifier = Modifier.size(26.dp),
