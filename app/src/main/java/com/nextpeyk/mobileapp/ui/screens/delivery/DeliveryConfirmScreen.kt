@@ -28,6 +28,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.graphics.*
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.platform.LocalLayoutDirection
@@ -353,6 +354,7 @@ private fun IdTypeDropdown(value: String, onValueChange: (String) -> Unit, isErr
 @Composable
 private fun OtpInput(value: String, onValueChange: (String) -> Unit, isError: Boolean) {
     val focusRequester = remember { FocusRequester() }
+    val keyboardController = LocalSoftwareKeyboardController.current
     var cursorVisible by remember { mutableStateOf(true) }
 
     LaunchedEffect(Unit) {
@@ -377,11 +379,15 @@ private fun OtpInput(value: String, onValueChange: (String) -> Unit, isError: Bo
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.NumberPassword),
             textStyle = TextStyle(color = Color.Transparent),
         )
-        // 5 visible boxes
+        // 5 visible boxes — LTR so digit 0 is always leftmost
+        CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Ltr) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .clickable { focusRequester.requestFocus() },
+                .clickable {
+                    focusRequester.requestFocus()
+                    keyboardController?.show()
+                },
             horizontalArrangement = Arrangement.spacedBy(8.dp),
         ) {
             (0 until 5).forEach { i ->
@@ -419,6 +425,7 @@ private fun OtpInput(value: String, onValueChange: (String) -> Unit, isError: Bo
                 }
             }
         }
+        } // end LTR
     }
 }
 
