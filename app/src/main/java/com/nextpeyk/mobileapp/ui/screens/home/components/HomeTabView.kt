@@ -51,8 +51,6 @@ fun HomeTabView(
     onProfile: () -> Unit = {},
     modifier: Modifier = Modifier,
 ) {
-    val others = shipments.mapIndexed { i, s -> Pair(i, s) }.filter { it.first != openIndex }
-
     Column(modifier = modifier.fillMaxSize()) {
         // Header
         Column(modifier = Modifier.padding(horizontal = 20.dp)) {
@@ -138,9 +136,14 @@ fun HomeTabView(
                     .background(Color.White)
                     .padding(horizontal = 18.dp, vertical = 4.dp),
             ) {
-                others.forEachIndexed { idx, (i, s) ->
-                    ShipmentRow(shipment = s, number = idx + 1, onClick = { onShipmentSelect(i) })
-                    if (idx < others.size - 1) {
+                shipments.forEachIndexed { i, s ->
+                    ShipmentRow(
+                        shipment = s,
+                        number = i + 1,
+                        isActive = i == openIndex,
+                        onClick = { onShipmentSelect(i) },
+                    )
+                    if (i < shipments.size - 1) {
                         HorizontalDivider(color = Line, thickness = 1.dp)
                     }
                 }

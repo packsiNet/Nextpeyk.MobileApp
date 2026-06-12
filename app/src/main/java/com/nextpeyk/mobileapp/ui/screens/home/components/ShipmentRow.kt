@@ -32,6 +32,7 @@ import com.nextpeyk.mobileapp.ui.theme.RedSoft
 fun ShipmentRow(
     shipment: Shipment,
     number: Int? = null,
+    isActive: Boolean = false,
     onClick: (() -> Unit)? = null,
     modifier: Modifier = Modifier,
 ) {
@@ -41,6 +42,8 @@ fun ShipmentRow(
     Row(
         modifier = modifier
             .fillMaxWidth()
+            .clip(RoundedCornerShape(12.dp))
+            .background(if (isActive) AccentSoft else Color.Transparent)
             .then(if (onClick != null) Modifier.clickable { onClick() } else Modifier)
             .padding(vertical = 13.dp, horizontal = 8.dp),
         verticalAlignment = Alignment.CenterVertically,
@@ -49,18 +52,33 @@ fun ShipmentRow(
             modifier = Modifier
                 .size(40.dp)
                 .clip(RoundedCornerShape(12.dp))
-                .background(Color(0xFFF3F5F6)),
+                .background(if (isActive) Accent else Color(0xFFF3F5F6)),
             contentAlignment = Alignment.Center,
         ) {
             if (number != null) {
-                Text(number.toString(), fontSize = 16.sp, fontWeight = FontWeight.Bold, color = Color(0xFF5A6469))
+                Text(
+                    number.toString(),
+                    fontSize = 16.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = if (isActive) Color.White else Color(0xFF5A6469),
+                )
             } else {
-                Icon(Icons.Filled.Inventory2, contentDescription = null, tint = Color(0xFF5A6469), modifier = Modifier.size(21.dp))
+                Icon(
+                    Icons.Filled.Inventory2,
+                    contentDescription = null,
+                    tint = if (isActive) Color.White else Color(0xFF5A6469),
+                    modifier = Modifier.size(21.dp),
+                )
             }
         }
         Spacer(Modifier.width(13.dp))
         Column(modifier = Modifier.weight(1f)) {
-            Text(shipment.tracking, fontSize = 14.sp, fontWeight = FontWeight.Bold, color = Ink)
+            Text(
+                shipment.tracking,
+                fontSize = 14.sp,
+                fontWeight = FontWeight.Bold,
+                color = if (isActive) Accent else Ink,
+            )
             Text(
                 shipment.recipientName, fontSize = 12.5.sp, fontWeight = FontWeight.Medium,
                 color = Muted, maxLines = 1, overflow = TextOverflow.Ellipsis,
