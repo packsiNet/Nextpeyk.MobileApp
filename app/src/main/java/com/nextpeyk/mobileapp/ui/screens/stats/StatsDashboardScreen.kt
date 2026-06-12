@@ -133,7 +133,7 @@ private fun StatsTopBar(onBack: () -> Unit) {
                 .clickable { onBack() },
             contentAlignment = Alignment.Center,
         ) {
-            Icon(ArrowBack, contentDescription = "بازگشت", tint = S_INK, modifier = Modifier.size(19.dp))
+            Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "بازگشت", tint = S_INK, modifier = Modifier.size(19.dp))
         }
         Column(
             modifier = Modifier.weight(1f),

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="1024"
+    android:viewportHeight="1024">
+
+    <!-- Blue glow behind origin dot (bottom-left) -->
+    <path
+        android:fillColor="#2A246FA3"
+        android:pathData="M182,810 A90,90,0,1,0,362,810 A90,90,0,1,0,182,810 Z"/>
+
+    <!-- Blue glow behind destination pin (top-right) -->
+    <path
+        android:fillColor="#2A246FA3"
+        android:pathData="M662,214 A90,90,0,1,0,842,214 A90,90,0,1,0,662,214 Z"/>
+
+    <!-- Left vertical stroke -->
+    <path
+        android:strokeWidth="80"
+        android:strokeColor="#F2FFFFFF"
+        android:strokeLineCap="round"
+        android:fillColor="#00000000"
+        android:pathData="M272,810 L272,214"/>
+
+    <!-- Right vertical stroke -->
+    <path
+        android:strokeWidth="80"
+        android:strokeColor="#F2FFFFFF"
+        android:strokeLineCap="round"
+        android:fillColor="#00000000"
+        android:pathData="M752,810 L752,214"/>
+
+    <!-- Diagonal stroke (slightly transparent for depth) -->
+    <path
+        android:strokeWidth="80"
+        android:strokeColor="#B3FFFFFF"
+        android:strokeLineCap="round"
+        android:fillColor="#00000000"
+        android:pathData="M272,214 L752,810"/>
+
+    <!-- Origin dot fill — blue gradient approximated as solid -->
+    <path
+        android:fillColor="#246FA3"
+        android:pathData="M216,810 A56,56,0,1,0,328,810 A56,56,0,1,0,216,810 Z"/>
+
+    <!-- Origin dot ring -->
+    <path
+        android:strokeWidth="10"
+        android:strokeColor="#B3FFFFFF"
+        android:fillColor="#00000000"
+        android:pathData="M216,810 A56,56,0,1,0,328,810 A56,56,0,1,0,216,810 Z"/>
+
+    <!-- Destination circle fill -->
+    <path
+        android:fillColor="#246FA3"
+        android:pathData="M700,214 A52,52,0,1,0,804,214 A52,52,0,1,0,700,214 Z"/>
+
+    <!-- Destination circle ring -->
+    <path
+        android:strokeWidth="10"
+        android:strokeColor="#B3FFFFFF"
+        android:fillColor="#00000000"
+        android:pathData="M700,214 A52,52,0,1,0,804,214 A52,52,0,1,0,700,214 Z"/>
+
+    <!-- Teardrop tail on destination pin -->
+    <path
+        android:fillColor="#246FA3"
+        android:pathData="M729,254 Q752,310 775,254 Z"/>
+
+    <!-- Small motion dots on diagonal -->
+    <path
+        android:fillColor="#2EFFFFFF"
+        android:pathData="M394,630 A22,22,0,1,0,438,630 A22,22,0,1,0,394,630 Z"/>
+    <path
+        android:fillColor="#1EFFFFFF"
+        android:pathData="M496,514 A16,16,0,1,0,528,514 A16,16,0,1,0,496,514 Z"/>
+
+</vector>

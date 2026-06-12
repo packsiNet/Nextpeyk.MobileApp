@@ -99,7 +99,7 @@ private fun ParcelTopBar(onBack: () -> Unit) {
         ) {
             // RTL: right-pointing chevron = go back
             Icon(
-                ArrowBack,
+                Icons.AutoMirrored.Filled.ArrowBack,
                 contentDescription = "بازگشت",
                 tint = INK_COLOR,
                 modifier = Modifier.size(19.dp),
@@ -418,7 +418,7 @@ private fun DrawScope.drawMapBackground() {
     val dx = (size.width - lw * scale) / 2f
     val dy = (size.height - lh * scale) / 2f
 
-    withTransform({ translate(dx, dy); scale(scale) }) {
+    withTransform({ translate(dx, dy); scale(scale, scale) }) {
         drawRect(Color(0xFFDCE8E2), topLeft = Offset.Zero, size = Size(lw, lh))
 
         // Parks

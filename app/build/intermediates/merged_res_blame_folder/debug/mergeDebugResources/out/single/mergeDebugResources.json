@@ -1,0 +1,22 @@
+[
+    {
+        "merged": "/home/shahram/.gradle/daemon/8.9/com.nextpeyk.mobileapp-debug-62:/drawable_motorcycle.png.flat",
+        "source": "/home/shahram/.gradle/daemon/8.9/com.nextpeyk.mobileapp-main-64:/drawable/motorcycle.png"
+    },
+    {
+        "merged": "com.nextpeyk.mobileapp-debug-62:/mipmap-anydpi-v26_ic_launcher_round.xml.flat",
+        "source": "com.nextpeyk.mobileapp-main-64:/mipmap-anydpi-v26/ic_launcher_round.xml"
+    },
+    {
+        "merged": "com.nextpeyk.mobileapp-debug-62:/drawable_ic_launcher_foreground.xml.flat",
+        "source": "com.nextpeyk.mobileapp-main-64:/drawable/ic_launcher_foreground.xml"
+    },
+    {
+        "merged": "com.nextpeyk.mobileapp-debug-62:/drawable_ic_launcher_background.xml.flat",
+        "source": "com.nextpeyk.mobileapp-main-64:/drawable/ic_launcher_background.xml"
+    },
+    {
+        "merged": "com.nextpeyk.mobileapp-debug-62:/mipmap-anydpi-v26_ic_launcher.xml.flat",
+        "source": "com.nextpeyk.mobileapp-main-64:/mipmap-anydpi-v26/ic_launcher.xml"
+    }
+]

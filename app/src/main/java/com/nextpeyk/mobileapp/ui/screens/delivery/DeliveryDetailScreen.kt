@@ -106,7 +106,7 @@ private fun DeliveryTopBar(onBack: () -> Unit) {
                 .clickable { onBack() },
             contentAlignment = Alignment.Center,
         ) {
-            Icon(ArrowBack, contentDescription = "بازگشت", tint = INK, modifier = Modifier.size(19.dp))
+            Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "بازگشت", tint = INK, modifier = Modifier.size(19.dp))
         }
         Text(
             "تحویل مرسوله",
@@ -419,7 +419,7 @@ private fun DrawScope.drawDeliveryMap() {
     val scale = maxOf(size.width / lw, size.height / lh)
     val dx = (size.width - lw * scale) / 2f
     val dy = (size.height - lh * scale) / 2f
-    withTransform({ translate(dx, dy); scale(scale) }) {
+    withTransform({ translate(dx, dy); scale(scale, scale) }) {
         drawRect(Color(0xFFDCE8E2), size = Size(lw, lh))
         drawRoundRect(Color(0xFFC8DFC5), Offset(-10f, 90f), Size(170f, 130f), CornerRadius(22f))
         drawRoundRect(Color(0xFFC8DFC5), Offset(270f, -10f), Size(150f, 120f), CornerRadius(22f))

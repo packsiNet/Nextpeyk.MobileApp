@@ -19,6 +19,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.*
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.drawscope.Stroke
@@ -113,7 +114,7 @@ fun ReturnReasonScreen(
                             .clickable { onBack() },
                         contentAlignment = Alignment.Center,
                     ) {
-                        Icon(ArrowBack, contentDescription = "بازگشت", tint = R_INK, modifier = Modifier.size(19.dp))
+                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "بازگشت", tint = R_INK, modifier = Modifier.size(19.dp))
                     }
                     Text(
                         "دلیل مرجوعی",

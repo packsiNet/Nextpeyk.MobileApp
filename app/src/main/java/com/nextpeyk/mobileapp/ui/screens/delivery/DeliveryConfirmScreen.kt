@@ -97,7 +97,7 @@ private fun ConfirmTopBar(onBack: () -> Unit) {
                 .clickable { onBack() },
             contentAlignment = Alignment.Center,
         ) {
-            Icon(ArrowBack, contentDescription = "بازگشت", tint = C_INK, modifier = Modifier.size(19.dp))
+            Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "بازگشت", tint = C_INK, modifier = Modifier.size(19.dp))
         }
         Text(
             "ثبت تحویل",

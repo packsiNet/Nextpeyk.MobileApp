@@ -121,7 +121,7 @@ private fun DrawScope.drawMap() {
     val dx = (size.width - LW * scale) / 2f
     val dy = (size.height - LH * scale) / 2f
 
-    withTransform({ translate(dx, dy); scale(scale) }) {
+    withTransform({ translate(dx, dy); scale(scale, scale) }) {
         // Background
         drawRect(Color(0xFFDCE8E2), topLeft = Offset.Zero, size = Size(LW, LH))
 
@@ -250,7 +250,7 @@ fun MapTabView(modifier: Modifier = Modifier) {
             val dx = (size.width - LW * scale) / 2f
             val dy = (size.height - LH * scale) / 2f
 
-            withTransform({ translate(dx, dy); scale(scale) }) {
+            withTransform({ translate(dx, dy); scale(scale, scale) }) {
                 // Cluster rings
                 clusters.filter { it.isMulti && it !== expandedCluster }.forEach { c ->
                     drawCircle(c.indices.first().let { mapPins[it].color }.copy(alpha = 0.12f), radius = 22f, center = Offset(c.cx, c.cy))
