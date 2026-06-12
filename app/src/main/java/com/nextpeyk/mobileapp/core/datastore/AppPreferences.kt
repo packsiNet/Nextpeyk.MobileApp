@@ -27,6 +27,9 @@ class AppPreferences @Inject constructor(
     private val _token = MutableStateFlow<String?>(null)
     val tokenFlow: StateFlow<String?> = _token.asStateFlow()
 
+    private val _isLoaded = MutableStateFlow(false)
+    val isLoaded: StateFlow<Boolean> = _isLoaded.asStateFlow()
+
     // Synchronous read — safe for use in OkHttp interceptors without blocking
     val token: String? get() = _token.value
 
@@ -34,7 +37,10 @@ class AppPreferences @Inject constructor(
         scope.launch {
             dataStore.data
                 .map { it[Keys.TOKEN] }
-                .collect { _token.value = it }
+                .collect {
+                    _token.value = it
+                    _isLoaded.value = true
+                }
         }
     }
 
