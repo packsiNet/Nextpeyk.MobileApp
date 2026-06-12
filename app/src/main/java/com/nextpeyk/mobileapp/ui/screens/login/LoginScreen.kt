@@ -17,11 +17,9 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.platform.LocalFocusManager
@@ -38,13 +36,11 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 
-private val LoginBg       = Color(0xFFF0F4F8)
-private val LoginSurface  = Color(0xFFFFFFFF)
-private val LoginSurface2 = Color(0xFFF5F8FB)
-private val LoginBorder   = Color(0xFFDDE4ED)
-private val LoginBlue     = Color(0xFF246FA3)
-private val LoginBlueDark = Color(0xFF1A5C8A)
-private val LoginBlueGlow = Color(0x26246FA3)
+private val LoginBg            = Color(0xFFF0F4F8)
+private val LoginSurface2      = Color(0xFFE8EFF5)
+private val LoginBorder        = Color(0xFFDDE4ED)
+private val LoginBlue          = Color(0xFF246FA3)
+private val LoginBlueDark      = Color(0xFF1A5C8A)
 private val LoginTextPrimary   = Color(0xFF1A2636)
 private val LoginTextSecondary = Color(0xFF5A7088)
 private val LoginTextMuted     = Color(0xFF9AB0C5)
@@ -59,207 +55,143 @@ fun LoginScreen(
     val focusManager = LocalFocusManager.current
 
     CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Rtl) {
-        Box(
+        Column(
             modifier = Modifier
                 .fillMaxSize()
-                .background(LoginBg),
+                .background(LoginBg)
+                .verticalScroll(rememberScrollState())
+                .padding(horizontal = 28.dp, vertical = 40.dp)
+                .windowInsetsPadding(WindowInsets.systemBars),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center,
         ) {
-            // Grid background + blobs
-            Canvas(modifier = Modifier.fillMaxSize()) {
-                val step = 48.dp.toPx()
-                val lineColor = Color(0xFFDDE4ED).copy(alpha = 0.25f)
-                var x = 0f
-                while (x <= size.width) {
-                    drawLine(lineColor, Offset(x, 0f), Offset(x, size.height), strokeWidth = 1f)
-                    x += step
-                }
-                var y = 0f
-                while (y <= size.height) {
-                    drawLine(lineColor, Offset(0f, y), Offset(size.width, y), strokeWidth = 1f)
-                    y += step
-                }
-                drawCircle(
-                    brush = Brush.radialGradient(
-                        listOf(Color(0x1F246FA3), Color.Transparent),
-                        center = Offset(size.width + 80.dp.toPx(), -80.dp.toPx()),
-                        radius = 150.dp.toPx(),
-                    ),
-                    center = Offset(size.width + 80.dp.toPx(), -80.dp.toPx()),
-                    radius = 150.dp.toPx(),
-                )
-                drawCircle(
-                    brush = Brush.radialGradient(
-                        listOf(Color(0x1F246FA3), Color.Transparent),
-                        center = Offset(-80.dp.toPx(), size.height + 60.dp.toPx()),
-                        radius = 100.dp.toPx(),
-                    ),
-                    center = Offset(-80.dp.toPx(), size.height + 60.dp.toPx()),
-                    radius = 100.dp.toPx(),
+            LogoSection()
+
+            Spacer(modifier = Modifier.height(36.dp))
+
+            // Username
+            LoginField(
+                label = "شماره موبایل یا نام کاربری",
+                value = uiState.username,
+                onValueChange = viewModel::onUsernameChange,
+                placeholder = "مثال: ۰۹۱۲۱۲۳۴۵۶۷",
+                leadingIcon = {
+                    Icon(
+                        Icons.Outlined.Person,
+                        contentDescription = null,
+                        tint = LoginTextMuted,
+                        modifier = Modifier.size(20.dp),
+                    )
+                },
+                keyboardOptions = KeyboardOptions(
+                    keyboardType = KeyboardType.Text,
+                    imeAction = ImeAction.Next,
+                ),
+                keyboardActions = KeyboardActions(
+                    onNext = { focusManager.moveFocus(FocusDirection.Down) },
+                ),
+            )
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            // Password
+            LoginField(
+                label = "رمز عبور",
+                value = uiState.password,
+                onValueChange = viewModel::onPasswordChange,
+                placeholder = "رمز عبور خود را وارد کنید",
+                leadingIcon = {
+                    Icon(
+                        Icons.Outlined.Lock,
+                        contentDescription = null,
+                        tint = LoginTextMuted,
+                        modifier = Modifier.size(20.dp),
+                    )
+                },
+                trailingIcon = {
+                    IconButton(onClick = viewModel::togglePasswordVisibility) {
+                        Icon(
+                            if (uiState.passwordVisible) Icons.Outlined.VisibilityOff
+                            else Icons.Outlined.Visibility,
+                            contentDescription = null,
+                            tint = LoginTextMuted,
+                            modifier = Modifier.size(20.dp),
+                        )
+                    }
+                },
+                visualTransformation = if (uiState.passwordVisible)
+                    VisualTransformation.None
+                else PasswordVisualTransformation(),
+                keyboardOptions = KeyboardOptions(
+                    keyboardType = KeyboardType.Password,
+                    imeAction = ImeAction.Done,
+                ),
+                keyboardActions = KeyboardActions(
+                    onDone = {
+                        focusManager.clearFocus()
+                        viewModel.login(onLoginSuccess)
+                    },
+                ),
+            )
+
+            // Error
+            if (uiState.error != null) {
+                Spacer(modifier = Modifier.height(8.dp))
+                Text(
+                    text = uiState.error!!,
+                    color = LoginDanger,
+                    fontSize = 13.sp,
+                    modifier = Modifier.fillMaxWidth(),
+                    textAlign = TextAlign.Start,
                 )
             }
 
+            Spacer(modifier = Modifier.height(8.dp))
+
+            // Links
             Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .verticalScroll(rememberScrollState())
-                    .padding(24.dp),
                 horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.Center,
+                verticalArrangement = Arrangement.spacedBy(2.dp),
             ) {
-                Box(
-                    modifier = Modifier
-                        .widthIn(max = 420.dp)
-                        .fillMaxWidth()
-                        .shadow(
-                            elevation = 16.dp,
-                            shape = RoundedCornerShape(24.dp),
-                            ambientColor = Color(0x14246FA3),
-                            spotColor = Color(0x14246FA3),
-                        )
-                        .background(LoginSurface, RoundedCornerShape(24.dp))
-                        .padding(horizontal = 32.dp, vertical = 40.dp),
-                ) {
-                    Column(
-                        horizontalAlignment = Alignment.CenterHorizontally,
-                        verticalArrangement = Arrangement.spacedBy(16.dp),
-                    ) {
-                        LogoSection()
+                TextButton(onClick = {}) {
+                    Text("ورود با کد یک‌بار مصرف", color = LoginBlueDark, fontSize = 13.sp)
+                }
+                TextButton(onClick = {}) {
+                    Text("فراموشی رمز عبور", color = LoginBlueDark, fontSize = 13.sp)
+                }
+            }
 
-                        Spacer(modifier = Modifier.height(8.dp))
+            Spacer(modifier = Modifier.height(8.dp))
 
-                        // Username
-                        LoginField(
-                            label = "شماره موبایل یا نام کاربری",
-                            value = uiState.username,
-                            onValueChange = viewModel::onUsernameChange,
-                            placeholder = "مثال: ۰۹۱۲۱۲۳۴۵۶۷",
-                            leadingIcon = {
-                                Icon(
-                                    Icons.Outlined.Person,
-                                    contentDescription = null,
-                                    tint = LoginTextMuted,
-                                    modifier = Modifier.size(20.dp),
-                                )
-                            },
-                            keyboardOptions = KeyboardOptions(
-                                keyboardType = KeyboardType.Text,
-                                imeAction = ImeAction.Next,
-                            ),
-                            keyboardActions = KeyboardActions(
-                                onNext = { focusManager.moveFocus(FocusDirection.Down) },
-                            ),
-                        )
-
-                        // Password
-                        LoginField(
-                            label = "رمز عبور",
-                            value = uiState.password,
-                            onValueChange = viewModel::onPasswordChange,
-                            placeholder = "رمز عبور خود را وارد کنید",
-                            leadingIcon = {
-                                Icon(
-                                    Icons.Outlined.Lock,
-                                    contentDescription = null,
-                                    tint = LoginTextMuted,
-                                    modifier = Modifier.size(20.dp),
-                                )
-                            },
-                            trailingIcon = {
-                                IconButton(onClick = viewModel::togglePasswordVisibility) {
-                                    Icon(
-                                        if (uiState.passwordVisible) Icons.Outlined.VisibilityOff
-                                        else Icons.Outlined.Visibility,
-                                        contentDescription = null,
-                                        tint = LoginTextMuted,
-                                        modifier = Modifier.size(20.dp),
-                                    )
-                                }
-                            },
-                            visualTransformation = if (uiState.passwordVisible)
-                                VisualTransformation.None
-                            else PasswordVisualTransformation(),
-                            keyboardOptions = KeyboardOptions(
-                                keyboardType = KeyboardType.Password,
-                                imeAction = ImeAction.Done,
-                            ),
-                            keyboardActions = KeyboardActions(
-                                onDone = {
-                                    focusManager.clearFocus()
-                                    viewModel.login(onLoginSuccess)
-                                },
-                            ),
-                        )
-
-                        // Error
-                        if (uiState.error != null) {
-                            Text(
-                                text = uiState.error!!,
-                                color = LoginDanger,
-                                fontSize = 13.sp,
-                                modifier = Modifier.fillMaxWidth(),
-                                textAlign = TextAlign.Start,
-                            )
-                        }
-
-                        // Links
-                        Column(
-                            horizontalAlignment = Alignment.CenterHorizontally,
-                            verticalArrangement = Arrangement.spacedBy(2.dp),
-                        ) {
-                            TextButton(onClick = {}) {
-                                Text("ورود با کد یک‌بار مصرف", color = LoginBlueDark, fontSize = 13.sp)
-                            }
-                            TextButton(onClick = {}) {
-                                Text("فراموشی رمز عبور", color = LoginBlueDark, fontSize = 13.sp)
-                            }
-                        }
-
-                        // Submit
-                        Button(
-                            onClick = {
-                                focusManager.clearFocus()
-                                viewModel.login(onLoginSuccess)
-                            },
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .height(52.dp),
-                            shape = RoundedCornerShape(12.dp),
-                            colors = ButtonDefaults.buttonColors(
-                                containerColor = LoginBlue,
-                                contentColor = Color.White,
-                                disabledContainerColor = LoginBlue.copy(alpha = 0.6f),
-                            ),
-                            enabled = !uiState.isLoading,
-                        ) {
-                            if (uiState.isLoading) {
-                                CircularProgressIndicator(
-                                    modifier = Modifier.size(20.dp),
-                                    color = Color.White,
-                                    strokeWidth = 2.dp,
-                                )
-                            } else {
-                                Text(
-                                    "ورود به حساب",
-                                    fontSize = 15.sp,
-                                    fontWeight = FontWeight.SemiBold,
-                                )
-                            }
-                        }
-
-                        // Footer
-                        Row(
-                            horizontalArrangement = Arrangement.Center,
-                            verticalAlignment = Alignment.CenterVertically,
-                        ) {
-                            Text("حساب ندارید؟ ", fontSize = 12.sp, color = LoginTextMuted)
-                            TextButton(
-                                onClick = {},
-                                contentPadding = PaddingValues(horizontal = 4.dp, vertical = 0.dp),
-                            ) {
-                                Text("ثبت‌نام کنید", fontSize = 12.sp, color = LoginTextSecondary)
-                            }
-                        }
-                    }
+            // Submit
+            Button(
+                onClick = {
+                    focusManager.clearFocus()
+                    viewModel.login(onLoginSuccess)
+                },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(52.dp),
+                shape = RoundedCornerShape(12.dp),
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = LoginBlue,
+                    contentColor = Color.White,
+                    disabledContainerColor = LoginBlue.copy(alpha = 0.6f),
+                ),
+                enabled = !uiState.isLoading,
+            ) {
+                if (uiState.isLoading) {
+                    CircularProgressIndicator(
+                        modifier = Modifier.size(20.dp),
+                        color = Color.White,
+                        strokeWidth = 2.dp,
+                    )
+                } else {
+                    Text(
+                        "ورود به حساب",
+                        fontSize = 15.sp,
+                        fontWeight = FontWeight.SemiBold,
+                    )
                 }
             }
         }
@@ -273,15 +205,7 @@ private fun LogoSection() {
         verticalArrangement = Arrangement.spacedBy(12.dp),
     ) {
         Box(
-            modifier = Modifier
-                .size(72.dp)
-                .shadow(
-                    elevation = 8.dp,
-                    shape = RoundedCornerShape(18.dp),
-                    ambientColor = Color(0x1F246FA3),
-                    spotColor = Color(0x1F246FA3),
-                )
-                .background(LoginSurface2, RoundedCornerShape(18.dp)),
+            modifier = Modifier.size(72.dp),
             contentAlignment = Alignment.Center,
         ) {
             Canvas(modifier = Modifier.size(44.dp)) {

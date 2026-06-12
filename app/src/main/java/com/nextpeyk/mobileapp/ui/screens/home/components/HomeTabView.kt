@@ -156,7 +156,7 @@ private data class FilterTab(val label: String, val count: Int)
 
 @Composable
 private fun ShipmentFilterTabs() {
-    val tabs = listOf(FilterTab("همه", 50), FilterTab("تحویل", 35), FilterTab("مرجوع", 15))
+    val tabs = listOf(FilterTab("درحال انجام", 50), FilterTab("تحویل", 35), FilterTab("مرجوع", 15))
     var selected by remember { mutableIntStateOf(0) }
 
     Row(

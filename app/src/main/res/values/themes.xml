@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <style name="Theme.Nextpeyk" parent="android:Theme.Material.Light.NoActionBar" />
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <style name="Theme.Nextpeyk" parent="android:Theme.Material.Light.NoActionBar">
+        <!-- Match splash screen bg to our LoadingScreen so transition is seamless -->
+        <item name="android:windowBackground">#F5F3EE</item>
+        <item name="android:windowSplashScreenBackground" tools:targetApi="31">#F5F3EE</item>
+    </style>
 </resources>

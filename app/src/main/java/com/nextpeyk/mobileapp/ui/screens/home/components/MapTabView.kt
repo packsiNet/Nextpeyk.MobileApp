@@ -10,6 +10,7 @@ import android.graphics.Point
 import android.graphics.Typeface
 import android.graphics.drawable.BitmapDrawable
 import android.view.MotionEvent
+import android.view.ViewTreeObserver
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
@@ -27,6 +28,7 @@ import com.nextpeyk.mobileapp.core.map.SnappTileSource
 import com.nextpeyk.mobileapp.ui.theme.Ink
 import com.nextpeyk.mobileapp.ui.theme.Line
 import com.nextpeyk.mobileapp.ui.theme.Muted
+import org.osmdroid.util.BoundingBox
 import org.osmdroid.util.GeoPoint
 import org.osmdroid.views.MapView
 import org.osmdroid.views.overlay.Marker
@@ -45,12 +47,16 @@ private data class PinData(
 private val BLUE_HEX = "#246FA3"
 private val RED_HEX = "#C43D3D"
 
+// Route: Vanak Square → Tajrish Square (north along Valiasr / Chamran)
 private val tehranPins = listOf(
-    PinData(35.7025, 51.4030, 1, "بهار محمدی", true),
-    PinData(35.6952, 51.3780, 2, "مهسا توکلی", true),
-    PinData(35.6940, 51.3760, 3, "کیان داوری", true),
-    PinData(35.6928, 51.3748, 4, "سارا مرادی", false),
-    PinData(35.6810, 51.4120, 5, "آرمان رستمی", false),
+    PinData(35.7565, 51.4099, 1, "میدان ونک",       true),
+    PinData(35.7650, 51.4118, 2, "میرداماد",         true),
+    PinData(35.7725, 51.4148, 3, "خیابان جردن",      false),
+    PinData(35.7800, 51.4195, 4, "فرمانیه",          true),
+    PinData(35.7870, 51.4240, 5, "الهیه",            false),
+    PinData(35.7940, 51.4282, 6, "نیاوران",          true),
+    PinData(35.7985, 51.4310, 7, "دربند",            false),
+    PinData(35.8017, 51.4330, 8, "میدان تجریش",     true),
 )
 
 // ─── Route overlay ─────────────────────────────────────────────────────────────
@@ -196,8 +202,10 @@ fun MapTabView(modifier: Modifier = Modifier) {
                     setMultiTouchControls(true)
                     isHorizontalMapRepetitionEnabled = false
                     isVerticalMapRepetitionEnabled = false
+
+                    // Fallback center before layout resolves
                     controller.setZoom(13.0)
-                    controller.setCenter(GeoPoint(35.6892, 51.3890))
+                    controller.setCenter(GeoPoint(35.7790, 51.4215))
 
                     // Route drawn first → below markers
                     overlays.add(RouteOverlay(tehranPins.map { GeoPoint(it.lat, it.lon) }))
@@ -220,6 +228,20 @@ fun MapTabView(modifier: Modifier = Modifier) {
                         if (event.action == MotionEvent.ACTION_DOWN) selectedPin = null
                         v.onTouchEvent(event)
                     }
+
+                    // Auto-zoom to fit all pins after first layout
+                    viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
+                        override fun onGlobalLayout() {
+                            viewTreeObserver.removeOnGlobalLayoutListener(this)
+                            val bbox = BoundingBox(
+                                tehranPins.maxOf { it.lat },
+                                tehranPins.maxOf { it.lon },
+                                tehranPins.minOf { it.lat },
+                                tehranPins.minOf { it.lon },
+                            )
+                            zoomToBoundingBox(bbox, false, 120)
+                        }
+                    })
                 }
             },
             modifier = Modifier.fillMaxSize(),

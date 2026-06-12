@@ -1,13 +1,7 @@
 package com.nextpeyk.mobileapp.navigation
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavType
@@ -19,6 +13,7 @@ import com.nextpeyk.mobileapp.ui.screens.delivery.DeliveryConfirmScreen
 import com.nextpeyk.mobileapp.ui.screens.delivery.DeliveryDetailScreen
 import com.nextpeyk.mobileapp.ui.screens.delivery.ReturnReasonScreen
 import com.nextpeyk.mobileapp.ui.screens.home.HomeScreen
+import com.nextpeyk.mobileapp.ui.screens.loading.LoadingScreen
 import com.nextpeyk.mobileapp.ui.screens.login.AuthState
 import com.nextpeyk.mobileapp.ui.screens.login.AuthViewModel
 import com.nextpeyk.mobileapp.ui.screens.login.LoginScreen
@@ -29,24 +24,31 @@ import com.nextpeyk.mobileapp.ui.screens.stats.StatsDashboardScreen
 fun AppNavGraph() {
     val authViewModel: AuthViewModel = hiltViewModel()
     val authState by authViewModel.authState.collectAsStateWithLifecycle()
-
-    if (authState is AuthState.Loading) {
-        Box(modifier = Modifier.fillMaxSize().background(Color(0xFFF0F4F8)))
-        return
-    }
-
-    val startDestination = remember {
-        if (authState is AuthState.Authenticated) Screen.Home.route else Screen.Login.route
-    }
-
     val navController = rememberNavController()
 
-    NavHost(navController = navController, startDestination = startDestination) {
+    NavHost(navController = navController, startDestination = Screen.Loading.route) {
+
+        composable(Screen.Loading.route) {
+            LoadingScreen(
+                authState = authState,
+                onNavigateToLogin = {
+                    navController.navigate(Screen.Login.route) {
+                        popUpTo(Screen.Loading.route) { inclusive = true }
+                    }
+                },
+                onNavigateToHome = {
+                    navController.navigate(Screen.Home.route) {
+                        popUpTo(Screen.Loading.route) { inclusive = true }
+                    }
+                },
+            )
+        }
 
         composable(Screen.Login.route) {
             LoginScreen(
                 onLoginSuccess = {
-                    navController.navigate(Screen.Home.route) {
+                    // Show loading before Home after login
+                    navController.navigate(Screen.Loading.route) {
                         popUpTo(Screen.Login.route) { inclusive = true }
                     }
                 },
