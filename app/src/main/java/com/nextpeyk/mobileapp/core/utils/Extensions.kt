@@ -1,4 +1,4 @@
-package com.nextpeyk.mobileapp.core.utils
+package ir.nextpeyk.android.core.utils
 
 import android.content.Context
 import android.content.pm.PackageManager

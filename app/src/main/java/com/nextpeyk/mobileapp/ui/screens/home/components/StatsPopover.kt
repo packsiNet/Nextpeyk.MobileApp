@@ -1,4 +1,4 @@
-package com.nextpeyk.mobileapp.ui.screens.home.components
+package ir.nextpeyk.android.ui.screens.home.components
 
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
@@ -21,12 +21,12 @@ import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.nextpeyk.mobileapp.ui.theme.Accent
-import com.nextpeyk.mobileapp.ui.theme.Ink
-import com.nextpeyk.mobileapp.ui.theme.Line
-import com.nextpeyk.mobileapp.ui.theme.Muted
-import com.nextpeyk.mobileapp.ui.theme.NextpeykGreen
-import com.nextpeyk.mobileapp.ui.theme.RedColor
+import ir.nextpeyk.android.ui.theme.Accent
+import ir.nextpeyk.android.ui.theme.Ink
+import ir.nextpeyk.android.ui.theme.Line
+import ir.nextpeyk.android.ui.theme.Muted
+import ir.nextpeyk.android.ui.theme.NextpeykGreen
+import ir.nextpeyk.android.ui.theme.RedColor
 import kotlin.math.PI
 
 private data class StatItem(val label: String, val value: Int, val color: Color)

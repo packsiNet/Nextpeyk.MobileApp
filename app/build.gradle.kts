@@ -7,11 +7,20 @@ plugins {
 }
 
 android {
-    namespace = "com.nextpeyk.mobileapp"
+    namespace = "ir.nextpeyk.android"
     compileSdk = 35
 
+    signingConfigs {
+        create("release") {
+            storeFile = file("../keystore/nextpeyk.jks")
+            storePassword = "Nextpeyk@2024"
+            keyAlias = "nextpeyk"
+            keyPassword = "Nextpeyk@2024"
+        }
+    }
+
     defaultConfig {
-        applicationId = "com.nextpeyk.mobileapp"
+        applicationId = "ir.nextpeyk.android"
         minSdk = 26
         targetSdk = 35
         versionCode = 1
@@ -23,6 +32,7 @@ android {
     buildTypes {
         release {
             isMinifyEnabled = false
+            signingConfig = signingConfigs.getByName("release")
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -87,6 +97,17 @@ dependencies {
     // Timber
     implementation(libs.timber)
 
-    // Map
-    implementation(libs.osmdroid)
+    // Map - Neshan SDK
+    implementation(libs.neshan.mobile.sdk)
+    implementation(libs.neshan.services.sdk)
+    implementation(libs.neshan.common.sdk)
+    implementation(libs.androidx.constraintlayout)
+
+    // CameraX
+    implementation(libs.androidx.camera.camera2)
+    implementation(libs.androidx.camera.lifecycle)
+    implementation(libs.androidx.camera.view)
+
+    // ML Kit Barcode Scanning
+    implementation(libs.mlkit.barcode.scanning)
 }

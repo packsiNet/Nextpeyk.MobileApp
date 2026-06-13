@@ -1,4 +1,4 @@
-package com.nextpeyk.mobileapp.ui.screens.delivery
+package ir.nextpeyk.android.ui.screens.delivery
 
 import androidx.compose.animation.core.*
 import androidx.compose.foundation.background
@@ -38,7 +38,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.nextpeyk.mobileapp.ui.screens.home.model.sampleShipments
+import ir.nextpeyk.android.ui.screens.home.model.sampleShipments
 import kotlinx.coroutines.delay
 
 private val C_ACCENT = Color(0xFF246FA3)
@@ -113,7 +113,7 @@ private fun ConfirmTopBar(onBack: () -> Unit) {
 
 @Composable
 private fun DeliveryFormContent(
-    shipment: com.nextpeyk.mobileapp.ui.screens.home.model.Shipment,
+    shipment: ir.nextpeyk.android.ui.screens.home.model.Shipment,
     onSubmit: () -> Unit,
 ) {
     var name by remember { mutableStateOf("") }
@@ -358,7 +358,6 @@ private fun OtpInput(value: String, onValueChange: (String) -> Unit, isError: Bo
     var cursorVisible by remember { mutableStateOf(true) }
 
     LaunchedEffect(Unit) {
-        focusRequester.requestFocus()
         while (isActive) {
             delay(530)
             cursorVisible = !cursorVisible
@@ -430,7 +429,7 @@ private fun OtpInput(value: String, onValueChange: (String) -> Unit, isError: Bo
 }
 
 @Composable
-private fun ParcelSummaryCard(shipment: com.nextpeyk.mobileapp.ui.screens.home.model.Shipment) {
+private fun ParcelSummaryCard(shipment: ir.nextpeyk.android.ui.screens.home.model.Shipment) {
     Row(
         modifier = Modifier
             .fillMaxWidth()

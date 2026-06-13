@@ -1,8 +1,8 @@
-package com.nextpeyk.mobileapp.ui.screens.login
+package ir.nextpeyk.android.ui.screens.login
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.nextpeyk.mobileapp.core.datastore.AppPreferences
+import ir.nextpeyk.android.core.datastore.AppPreferences
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow

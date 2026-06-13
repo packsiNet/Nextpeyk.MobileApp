@@ -1,4 +1,4 @@
-package com.nextpeyk.mobileapp.navigation
+package ir.nextpeyk.android.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -9,16 +9,17 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.nextpeyk.mobileapp.ui.screens.delivery.DeliveryConfirmScreen
-import com.nextpeyk.mobileapp.ui.screens.delivery.DeliveryDetailScreen
-import com.nextpeyk.mobileapp.ui.screens.delivery.ReturnReasonScreen
-import com.nextpeyk.mobileapp.ui.screens.home.HomeScreen
-import com.nextpeyk.mobileapp.ui.screens.loading.LoadingScreen
-import com.nextpeyk.mobileapp.ui.screens.login.AuthState
-import com.nextpeyk.mobileapp.ui.screens.login.AuthViewModel
-import com.nextpeyk.mobileapp.ui.screens.login.LoginScreen
-import com.nextpeyk.mobileapp.ui.screens.parcel.ParcelDetailsScreen
-import com.nextpeyk.mobileapp.ui.screens.stats.StatsDashboardScreen
+import ir.nextpeyk.android.ui.screens.delivery.DeliveryConfirmScreen
+import ir.nextpeyk.android.ui.screens.delivery.DeliveryDetailScreen
+import ir.nextpeyk.android.ui.screens.delivery.ReturnReasonScreen
+import ir.nextpeyk.android.ui.screens.home.HomeScreen
+import ir.nextpeyk.android.ui.screens.loading.LoadingScreen
+import ir.nextpeyk.android.ui.screens.login.AuthState
+import ir.nextpeyk.android.ui.screens.login.AuthViewModel
+import ir.nextpeyk.android.ui.screens.login.LoginScreen
+import ir.nextpeyk.android.ui.screens.parcel.ParcelDetailsScreen
+import ir.nextpeyk.android.ui.screens.scanner.BarcodeScannerScreen
+import ir.nextpeyk.android.ui.screens.stats.StatsDashboardScreen
 
 @Composable
 fun AppNavGraph() {
@@ -106,6 +107,17 @@ fun AppNavGraph() {
 
         composable(Screen.StatsDashboard.route) {
             StatsDashboardScreen(onBack = { navController.popBackStack() })
+        }
+
+        composable(Screen.BarcodeScanner.route) {
+            BarcodeScannerScreen(
+                onBarcodeScanned = { _ ->
+                    navController.navigate(Screen.DeliveryDetail.createRoute(0)) {
+                        popUpTo(Screen.BarcodeScanner.route) { inclusive = true }
+                    }
+                },
+                onBack = { navController.popBackStack() },
+            )
         }
     }
 }

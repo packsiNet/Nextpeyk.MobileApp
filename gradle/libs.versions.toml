@@ -14,7 +14,14 @@ lifecycle = "2.8.1"
 playServicesLocation = "21.3.0"
 datastore = "1.1.1"
 timber = "5.0.1"
+camerax = "1.3.4"
+mlkitBarcode = "17.3.0"
 osmdroid = "6.1.18"
+neshanMobile = "1.0.3"
+neshanServices = "1.0.0"
+neshanCommon = "0.0.3"
+playServicesGcm = "17.0.0"
+constraintlayout = "2.1.4"
 
 [libraries]
 # Compose
@@ -58,8 +65,23 @@ material-icons-extended = { group = "androidx.compose.material", name = "materia
 # Timber
 timber = { group = "com.jakewharton.timber", name = "timber", version.ref = "timber" }
 
-# OSMDroid
+# OSMDroid (used by Neshan SDK overlays)
 osmdroid = { group = "org.osmdroid", name = "osmdroid-android", version.ref = "osmdroid" }
+
+# Neshan Maps SDK
+neshan-mobile-sdk = { group = "neshan-android-sdk", name = "mobile-sdk", version.ref = "neshanMobile" }
+neshan-services-sdk = { group = "neshan-android-sdk", name = "services-sdk", version.ref = "neshanServices" }
+neshan-common-sdk = { group = "neshan-android-sdk", name = "common-sdk", version.ref = "neshanCommon" }
+play-services-gcm = { group = "com.google.android.gms", name = "play-services-gcm", version.ref = "playServicesGcm" }
+androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
+
+# CameraX
+androidx-camera-camera2 = { group = "androidx.camera", name = "camera-camera2", version.ref = "camerax" }
+androidx-camera-lifecycle = { group = "androidx.camera", name = "camera-lifecycle", version.ref = "camerax" }
+androidx-camera-view = { group = "androidx.camera", name = "camera-view", version.ref = "camerax" }
+
+# ML Kit Barcode
+mlkit-barcode-scanning = { group = "com.google.mlkit", name = "barcode-scanning", version.ref = "mlkitBarcode" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

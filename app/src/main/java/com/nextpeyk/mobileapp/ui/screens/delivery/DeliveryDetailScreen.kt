@@ -1,4 +1,4 @@
-package com.nextpeyk.mobileapp.ui.screens.delivery
+package ir.nextpeyk.android.ui.screens.delivery
 
 import androidx.compose.animation.core.*
 import androidx.compose.foundation.background
@@ -45,11 +45,10 @@ import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.viewinterop.AndroidView
-import com.nextpeyk.mobileapp.core.map.SnappTileSource
-import com.nextpeyk.mobileapp.ui.screens.home.model.sampleShipments
+import ir.nextpeyk.android.ui.screens.home.model.sampleShipments
 import kotlinx.coroutines.delay
-import org.osmdroid.util.GeoPoint
-import org.osmdroid.views.MapView
+import org.neshan.common.model.LatLng
+import org.neshan.mapsdk.MapView
 
 // ── Design tokens ──────────────────────────────────────────────
 private val ACCENT = Color(0xFF246FA3)
@@ -145,7 +144,7 @@ private fun DeliveryTopBar(onBack: () -> Unit) {
 
 @Composable
 private fun DeliveryTicketCard(
-    shipment: com.nextpeyk.mobileapp.ui.screens.home.model.Shipment,
+    shipment: ir.nextpeyk.android.ui.screens.home.model.Shipment,
 ) {
     val clipboard = LocalClipboardManager.current
     var copied by remember { mutableStateOf(false) }
@@ -267,6 +266,7 @@ private fun DeliveryTicketCard(
             }
 
             // Payment card
+            DeliveryMapThumb(lat = shipment.lat, lng = shipment.lng)
             DeliveryPaymentCard()
         }
     }
@@ -319,7 +319,7 @@ private fun DeliveryInfoRow(
 }
 
 @Composable
-private fun DeliveryMapThumb() {
+private fun DeliveryMapThumb(lat: Double, lng: Double) {
     val infinite = rememberInfiniteTransition(label = "map")
     val pulseAlpha by infinite.animateFloat(
         initialValue = 0.45f, targetValue = 0f,
@@ -338,13 +338,8 @@ private fun DeliveryMapThumb() {
         AndroidView(
             factory = { ctx ->
                 MapView(ctx).apply {
-                    setTileSource(SnappTileSource)
-                    setMultiTouchControls(false)
-                    isFocusable = false
-                    isClickable = false
-                    controller.setZoom(15.0)
-                    controller.setCenter(GeoPoint(35.7025, 51.4030))
-                    setOnTouchListener { _, _ -> true }  // block all touch → outer scroll works
+                    setStaticMap(true)
+                    moveCamera(LatLng(lat, lng), 15f)
                 }
             },
             modifier = Modifier.fillMaxSize(),

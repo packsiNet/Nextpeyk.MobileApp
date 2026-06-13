@@ -1,4 +1,4 @@
-package com.nextpeyk.mobileapp.ui.screens.home
+package ir.nextpeyk.android.ui.screens.home
 
 import android.app.Activity
 import android.widget.Toast
@@ -21,10 +21,10 @@ import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import com.nextpeyk.mobileapp.navigation.Screen
-import com.nextpeyk.mobileapp.ui.screens.home.components.*
-import com.nextpeyk.mobileapp.ui.screens.home.model.HomeTab
-import com.nextpeyk.mobileapp.ui.theme.Page
+import ir.nextpeyk.android.navigation.Screen
+import ir.nextpeyk.android.ui.screens.home.components.*
+import ir.nextpeyk.android.ui.screens.home.model.HomeTab
+import ir.nextpeyk.android.ui.theme.Page
 
 @Composable
 fun HomeScreen(navController: NavController, viewModel: HomeViewModel = hiltViewModel()) {
@@ -76,8 +76,8 @@ fun HomeScreen(navController: NavController, viewModel: HomeViewModel = hiltView
             FloatingTabBar(
                 activeTab = uiState.activeTab,
                 onTabSelect = viewModel::setActiveTab,
-                onAdd = viewModel::showAddSheet,
-                onScan = { navController.navigate(Screen.DeliveryDetail.createRoute(0)) },
+                onScan = { navController.navigate(Screen.BarcodeScanner.route) },
+                onSearch = viewModel::showSearch,
                 modifier = Modifier
                     .fillMaxWidth()
                     .align(Alignment.BottomCenter),
@@ -126,8 +126,5 @@ fun HomeScreen(navController: NavController, viewModel: HomeViewModel = hiltView
             }
         }
 
-        if (uiState.showAddSheet) {
-            AddBottomSheet(onDismiss = viewModel::dismissAddSheet)
-        }
     }
 }

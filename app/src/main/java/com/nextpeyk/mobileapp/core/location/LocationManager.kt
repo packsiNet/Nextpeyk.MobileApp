@@ -1,4 +1,4 @@
-package com.nextpeyk.mobileapp.core.location
+package ir.nextpeyk.android.core.location
 
 import android.Manifest
 import android.annotation.SuppressLint
@@ -10,7 +10,7 @@ import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationResult
 import com.google.android.gms.location.Priority
-import com.nextpeyk.mobileapp.core.utils.hasPermission
+import ir.nextpeyk.android.core.utils.hasPermission
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow

@@ -1,4 +1,4 @@
-package com.nextpeyk.mobileapp.core.datastore
+package ir.nextpeyk.android.core.datastore
 
 import android.content.Context
 import androidx.datastore.core.DataStore

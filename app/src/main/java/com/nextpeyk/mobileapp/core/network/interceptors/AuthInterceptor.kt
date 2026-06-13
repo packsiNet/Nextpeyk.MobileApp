@@ -1,6 +1,6 @@
-package com.nextpeyk.mobileapp.core.network.interceptors
+package ir.nextpeyk.android.core.network.interceptors
 
-import com.nextpeyk.mobileapp.core.datastore.AppPreferences
+import ir.nextpeyk.android.core.datastore.AppPreferences
 import okhttp3.Interceptor
 import okhttp3.Response
 import javax.inject.Inject

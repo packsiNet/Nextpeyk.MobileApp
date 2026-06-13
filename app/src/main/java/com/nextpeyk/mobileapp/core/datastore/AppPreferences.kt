@@ -1,10 +1,10 @@
-package com.nextpeyk.mobileapp.core.datastore
+package ir.nextpeyk.android.core.datastore
 
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
-import com.nextpeyk.mobileapp.di.ApplicationScope
+import ir.nextpeyk.android.di.ApplicationScope
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

@@ -1,4 +1,4 @@
-package com.nextpeyk.mobileapp.ui.screens.home.components
+package ir.nextpeyk.android.ui.screens.home.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -19,14 +19,14 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.nextpeyk.mobileapp.ui.screens.home.model.Shipment
-import com.nextpeyk.mobileapp.ui.screens.home.model.ShipmentTone
-import com.nextpeyk.mobileapp.ui.theme.Accent
-import com.nextpeyk.mobileapp.ui.theme.AccentSoft
-import com.nextpeyk.mobileapp.ui.theme.Ink
-import com.nextpeyk.mobileapp.ui.theme.Muted
-import com.nextpeyk.mobileapp.ui.theme.RedColor
-import com.nextpeyk.mobileapp.ui.theme.RedSoft
+import ir.nextpeyk.android.ui.screens.home.model.Shipment
+import ir.nextpeyk.android.ui.screens.home.model.ShipmentTone
+import ir.nextpeyk.android.ui.theme.Accent
+import ir.nextpeyk.android.ui.theme.AccentSoft
+import ir.nextpeyk.android.ui.theme.Ink
+import ir.nextpeyk.android.ui.theme.Muted
+import ir.nextpeyk.android.ui.theme.RedColor
+import ir.nextpeyk.android.ui.theme.RedSoft
 
 @Composable
 fun ShipmentRow(

@@ -1,4 +1,4 @@
-package com.nextpeyk.mobileapp.core.location
+package ir.nextpeyk.android.core.location
 
 import android.content.Context
 import com.google.android.gms.location.FusedLocationProviderClient

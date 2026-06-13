@@ -1,4 +1,4 @@
-package com.nextpeyk.mobileapp.ui.screens.stats
+package ir.nextpeyk.android.ui.screens.stats
 
 import androidx.compose.animation.core.*
 import androidx.compose.foundation.background

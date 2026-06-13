@@ -1,4 +1,4 @@
-package com.nextpeyk.mobileapp.ui.screens.parcel
+package ir.nextpeyk.android.ui.screens.parcel
 
 import androidx.compose.animation.core.*
 import androidx.compose.foundation.background
@@ -37,11 +37,10 @@ import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.viewinterop.AndroidView
-import com.nextpeyk.mobileapp.core.map.SnappTileSource
-import com.nextpeyk.mobileapp.ui.screens.home.model.sampleShipments
+import ir.nextpeyk.android.ui.screens.home.model.sampleShipments
 import kotlinx.coroutines.delay
-import org.osmdroid.util.GeoPoint
-import org.osmdroid.views.MapView
+import org.neshan.common.model.LatLng
+import org.neshan.mapsdk.MapView
 
 private val ACCENT_COLOR = Color(0xFF246FA3)
 private val ACCENT_SOFT = Color(0xFFE9F1F7)
@@ -125,7 +124,7 @@ private fun ParcelTopBar(onBack: () -> Unit) {
 }
 
 @Composable
-private fun TicketCard(shipment: com.nextpeyk.mobileapp.ui.screens.home.model.Shipment) {
+private fun TicketCard(shipment: ir.nextpeyk.android.ui.screens.home.model.Shipment) {
     val clipboardManager = LocalClipboardManager.current
     var copied by remember { mutableStateOf(false) }
     LaunchedEffect(copied) { if (copied) { delay(1400); copied = false } }
@@ -205,7 +204,7 @@ private fun TicketCard(shipment: com.nextpeyk.mobileapp.ui.screens.home.model.Sh
             }
 
             // Real tile map thumbnail
-            MapThumb()
+            MapThumb(lat = shipment.lat, lng = shipment.lng)
 
             // Address + phone
             Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
@@ -249,7 +248,7 @@ private fun InfoRow(icon: @Composable () -> Unit, label: String, value: String, 
 }
 
 @Composable
-private fun MapThumb() {
+private fun MapThumb(lat: Double, lng: Double) {
     val infinite = rememberInfiniteTransition(label = "map")
     val pulseAlpha by infinite.animateFloat(
         initialValue = 0.45f, targetValue = 0f,
@@ -268,13 +267,8 @@ private fun MapThumb() {
         AndroidView(
             factory = { ctx ->
                 MapView(ctx).apply {
-                    setTileSource(SnappTileSource)
-                    setMultiTouchControls(false)
-                    isFocusable = false
-                    isClickable = false
-                    controller.setZoom(15.0)
-                    controller.setCenter(GeoPoint(35.7025, 51.4030))
-                    setOnTouchListener { _, _ -> true }
+                    setStaticMap(true)
+                    moveCamera(LatLng(lat, lng), 15f)
                 }
             },
             modifier = Modifier.fillMaxSize(),

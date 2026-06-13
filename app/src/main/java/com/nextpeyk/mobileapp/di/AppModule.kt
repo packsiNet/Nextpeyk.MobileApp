@@ -1,4 +1,4 @@
-package com.nextpeyk.mobileapp.di
+package ir.nextpeyk.android.di
 
 import dagger.Module
 import dagger.Provides

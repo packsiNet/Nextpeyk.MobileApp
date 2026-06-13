@@ -1,4 +1,4 @@
-package com.nextpeyk.mobileapp
+package ir.nextpeyk.android
 
 import android.app.AlertDialog
 import android.os.Bundle
@@ -6,8 +6,8 @@ import androidx.activity.ComponentActivity
 import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import com.nextpeyk.mobileapp.navigation.AppNavGraph
-import com.nextpeyk.mobileapp.ui.theme.NextpeykTheme
+import ir.nextpeyk.android.navigation.AppNavGraph
+import ir.nextpeyk.android.ui.theme.NextpeykTheme
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.File
 

@@ -1,4 +1,4 @@
-package com.nextpeyk.mobileapp.core.network
+package ir.nextpeyk.android.core.network
 
 import retrofit2.http.GET
 

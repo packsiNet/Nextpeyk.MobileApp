@@ -1,4 +1,4 @@
-package com.nextpeyk.mobileapp.ui.screens.home.components
+package ir.nextpeyk.android.ui.screens.home.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -27,12 +27,12 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.nextpeyk.mobileapp.ui.screens.home.model.Shipment
-import com.nextpeyk.mobileapp.ui.theme.Accent
-import com.nextpeyk.mobileapp.ui.theme.Ink
-import com.nextpeyk.mobileapp.ui.theme.Line
-import com.nextpeyk.mobileapp.ui.theme.Muted
-import com.nextpeyk.mobileapp.ui.theme.Page
+import ir.nextpeyk.android.ui.screens.home.model.Shipment
+import ir.nextpeyk.android.ui.theme.Accent
+import ir.nextpeyk.android.ui.theme.Ink
+import ir.nextpeyk.android.ui.theme.Line
+import ir.nextpeyk.android.ui.theme.Muted
+import ir.nextpeyk.android.ui.theme.Page
 
 @Composable
 fun SearchOverlay(

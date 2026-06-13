@@ -1,4 +1,4 @@
-package com.nextpeyk.mobileapp.ui.theme
+package ir.nextpeyk.android.ui.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme

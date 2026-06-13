@@ -1,4 +1,4 @@
-package com.nextpeyk.mobileapp.ui.screens.delivery
+package ir.nextpeyk.android.ui.screens.delivery
 
 import androidx.compose.animation.core.*
 import androidx.compose.foundation.background
@@ -29,7 +29,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.nextpeyk.mobileapp.ui.screens.home.model.sampleShipments
+import ir.nextpeyk.android.ui.screens.home.model.sampleShipments
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -302,7 +302,7 @@ private fun ReasonButton(
 }
 
 @Composable
-private fun ReturnParcelCard(shipment: com.nextpeyk.mobileapp.ui.screens.home.model.Shipment) {
+private fun ReturnParcelCard(shipment: ir.nextpeyk.android.ui.screens.home.model.Shipment) {
     Row(
         modifier = Modifier
             .fillMaxWidth()

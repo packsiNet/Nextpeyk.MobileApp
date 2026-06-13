@@ -1,4 +1,4 @@
-package com.nextpeyk.mobileapp.ui.screens.loading
+package ir.nextpeyk.android.ui.screens.loading
 
 import android.webkit.WebView
 import androidx.compose.animation.core.*
@@ -26,7 +26,7 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.viewinterop.AndroidView
-import com.nextpeyk.mobileapp.ui.screens.login.AuthState
+import ir.nextpeyk.android.ui.screens.login.AuthState
 import kotlinx.coroutines.delay
 
 // Screen colors (inside the frame — #F5F3EE cream)

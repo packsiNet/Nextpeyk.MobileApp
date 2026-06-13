@@ -1,8 +1,8 @@
-package com.nextpeyk.mobileapp.core.network
+package ir.nextpeyk.android.core.network
 
-import com.nextpeyk.mobileapp.core.network.interceptors.AuthInterceptor
-import com.nextpeyk.mobileapp.core.network.interceptors.LoggingInterceptor
-import com.nextpeyk.mobileapp.core.utils.Constants
+import ir.nextpeyk.android.core.network.interceptors.AuthInterceptor
+import ir.nextpeyk.android.core.network.interceptors.LoggingInterceptor
+import ir.nextpeyk.android.core.utils.Constants
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

@@ -1,4 +1,4 @@
-package com.nextpeyk.mobileapp.navigation
+package ir.nextpeyk.android.navigation
 
 sealed class Screen(val route: String) {
     data object Loading : Screen("loading")
@@ -21,4 +21,5 @@ sealed class Screen(val route: String) {
         const val ARG = "shipmentIndex"
     }
     data object StatsDashboard : Screen("stats_dashboard")
+    data object BarcodeScanner : Screen("barcode_scanner")
 }

@@ -1,10 +1,12 @@
-package com.nextpeyk.mobileapp.ui.screens.login
+package ir.nextpeyk.android.ui.screens.login
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.layout.imePadding
+import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
@@ -59,9 +61,10 @@ fun LoginScreen(
             modifier = Modifier
                 .fillMaxSize()
                 .background(LoginBg)
+                .systemBarsPadding()
+                .imePadding()
                 .verticalScroll(rememberScrollState())
-                .padding(horizontal = 28.dp, vertical = 40.dp)
-                .windowInsetsPadding(WindowInsets.systemBars),
+                .padding(horizontal = 28.dp, vertical = 40.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center,
         ) {

@@ -1,4 +1,4 @@
-package com.nextpeyk.mobileapp.ui.screens.home.components
+package ir.nextpeyk.android.ui.screens.home.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -7,10 +7,10 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Map
 import androidx.compose.material.icons.filled.QrCodeScanner
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -19,18 +19,18 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
-import com.nextpeyk.mobileapp.ui.screens.home.model.HomeTab
-import com.nextpeyk.mobileapp.ui.theme.Accent
-import com.nextpeyk.mobileapp.ui.theme.Muted
-import com.nextpeyk.mobileapp.ui.theme.PillActive
-import com.nextpeyk.mobileapp.ui.theme.PillBg
+import ir.nextpeyk.android.ui.screens.home.model.HomeTab
+import ir.nextpeyk.android.ui.theme.Accent
+import ir.nextpeyk.android.ui.theme.Muted
+import ir.nextpeyk.android.ui.theme.PillActive
+import ir.nextpeyk.android.ui.theme.PillBg
 
 @Composable
 fun FloatingTabBar(
     activeTab: HomeTab,
     onTabSelect: (HomeTab) -> Unit,
-    onAdd: () -> Unit,
     onScan: () -> Unit,
+    onSearch: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Box(modifier = modifier.fillMaxWidth(), contentAlignment = Alignment.BottomCenter) {
@@ -58,8 +58,8 @@ fun FloatingTabBar(
                         .padding(horizontal = 2.dp),
                 )
 
+                TabActionBtn(icon = Icons.Filled.Search, onClick = onSearch)
                 TabActionBtn(icon = Icons.Filled.QrCodeScanner, onClick = onScan)
-                TabActionBtn(icon = Icons.Filled.Add, onClick = onAdd)
             }
         }
     }

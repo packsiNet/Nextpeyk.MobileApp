@@ -1,4 +1,4 @@
-package com.nextpeyk.mobileapp.core.network.interceptors
+package ir.nextpeyk.android.core.network.interceptors
 
 import okhttp3.logging.HttpLoggingInterceptor
 

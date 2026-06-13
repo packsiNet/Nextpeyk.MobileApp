@@ -1,4 +1,4 @@
-package com.nextpeyk.mobileapp.ui.screens.home.components
+package ir.nextpeyk.android.ui.screens.home.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -25,13 +25,13 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.nextpeyk.mobileapp.ui.screens.home.model.Shipment
-import com.nextpeyk.mobileapp.ui.screens.home.model.style
-import com.nextpeyk.mobileapp.ui.theme.Accent
-import com.nextpeyk.mobileapp.ui.theme.AccentSoft
-import com.nextpeyk.mobileapp.ui.theme.Ink
-import com.nextpeyk.mobileapp.ui.theme.Line
-import com.nextpeyk.mobileapp.ui.theme.Muted
+import ir.nextpeyk.android.ui.screens.home.model.Shipment
+import ir.nextpeyk.android.ui.screens.home.model.style
+import ir.nextpeyk.android.ui.theme.Accent
+import ir.nextpeyk.android.ui.theme.AccentSoft
+import ir.nextpeyk.android.ui.theme.Ink
+import ir.nextpeyk.android.ui.theme.Line
+import ir.nextpeyk.android.ui.theme.Muted
 
 @Composable
 fun DetailCard(shipment: Shipment, number: Int, onDetails: () -> Unit = {}, modifier: Modifier = Modifier) {
